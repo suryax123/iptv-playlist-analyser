@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stream Ninja - IPTV Playlist Analyzer & Stream Checker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Animated Background -->
+  <div class="bg-animation">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="grid-overlay"></div>
+  </div>
+
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <div class="logo">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="5 3 19 12 5 21 5 3"/>
+            <line x1="12" y1="12" x2="19" y2="12"/>
+          </svg>
+        </div>
+        <span class="logo-text">Stream<span class="accent">Ninja</span></span>
+      </div>
+      <div class="header-badge">
+        <span class="pulse"></span>
+        Free & Secure
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+      <!-- Hero Section -->
+      <section class="hero">
+        <div class="hero-badge">⚡ Stream Ninja - Your IPTV Toolkit</div>
+        <h1>IPTV Stream<br><span class="gradient-text">Analyzer & Checker</span></h1>
+        <p>Analyze playlists, check stream status, validate URLs, and export reports. Fast, secure, and completely free.</p>
+      </section>
+
+      <!-- Mode Selection -->
+      <section class="mode-selector">
+        <button class="mode-btn active" data-mode="analyze">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="M21 21l-4.35-4.35"/>
+            <path d="M11 8v6"/>
+            <path d="M8 11h6"/>
+          </svg>
+          Analyze Playlist
+        </button>
+        <button class="mode-btn" data-mode="channel">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="5 3 19 12 5 21 5 3"/>
+          </svg>
+          Check Channel
+        </button>
+        <button class="mode-btn" data-mode="convert">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+          </svg>
+          Convert to PDF
+        </button>
+      </section>
+
+      <!-- Main Card -->
+      <section class="converter-card">
+        <div class="card-glow"></div>
+        
+        <!-- Input Section -->
+        <div class="input-section">
+          <div class="input-group">
+            <div class="input-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+              </svg>
+            </div>
+            <input 
+              type="url" 
+              id="playlistUrl" 
+              placeholder="Paste your playlist URL here (HTTP or HTTPS)..."
+              autocomplete="off"
+              spellcheck="false"
+            >
+            <button id="clearBtn" class="clear-btn hidden" title="Clear">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18"/>
+                <line x1="6" y1="6" x2="18" y2="18"/>
+              </svg>
+            </button>
+          </div>
+          <button id="actionBtn" class="action-btn">
+            <span class="btn-content">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="actionBtnIcon">
+                <circle cx="11" cy="11" r="8"/>
+                <path d="M21 21l-4.35-4.35"/>
+              </svg>
+              <span id="actionBtnText">Analyze Playlist</span>
+            </span>
+            <span class="btn-loading">
+              <div class="spinner"></div>
+              <span id="loadingText">Analyzing...</span>
+            </span>
+          </button>
+        </div>
+
+        <!-- HTTP Warning -->
+        <div id="httpWarning" class="warning-banner hidden">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+            <line x1="12" y1="9" x2="12" y2="13"/>
+            <line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+          <span>HTTP link detected. We'll process it securely, but HTTPS is recommended.</span>
+        </div>
+
+        <!-- Status Messages -->
+        <div id="statusContainer" class="status-container hidden">
+          <div class="status-card" id="statusCard">
+            <div class="status-icon"></div>
+            <div class="status-content">
+              <span class="status-title"></span>
+              <span class="status-message"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Analysis Progress -->
+        <div id="analysisProgress" class="analysis-progress hidden">
+          <div class="progress-header">
+            <span>Checking channels...</span>
+            <span id="progressCount">0/0</span>
+          </div>
+          <div class="progress-bar-full">
+            <div class="progress-fill-animated" id="analysisProgressBar"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Analysis Results -->
+      <section id="analysisResults" class="analysis-results hidden">
+        <!-- Summary Cards -->
+        <div class="summary-grid">
+          <div class="summary-card">
+            <div class="summary-icon total">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="7" height="7"/>
+                <rect x="14" y="3" width="7" height="7"/>
+                <rect x="14" y="14" width="7" height="7"/>
+                <rect x="3" y="14" width="7" height="7"/>
+              </svg>
+            </div>
+            <div class="summary-data">
+              <span class="summary-value" id="totalChannels">0</span>
+              <span class="summary-label">Total Channels</span>
+            </div>
+          </div>
+          <div class="summary-card">
+            <div class="summary-icon live">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22 4 12 14.01 9 11.01"/>
+              </svg>
+            </div>
+            <div class="summary-data">
+              <span class="summary-value" id="liveChannels">0</span>
+              <span class="summary-label">Live Channels</span>
+            </div>
+          </div>
+          <div class="summary-card">
+            <div class="summary-icon dead">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="15" y1="9" x2="9" y2="15"/>
+                <line x1="9" y1="9" x2="15" y2="15"/>
+              </svg>
+            </div>
+            <div class="summary-data">
+              <span class="summary-value" id="deadChannels">0</span>
+              <span class="summary-label">Dead Channels</span>
+            </div>
+          </div>
+          <div class="summary-card">
+            <div class="summary-icon groups">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+            </div>
+            <div class="summary-data">
+              <span class="summary-value" id="groupCount">0</span>
+              <span class="summary-label">Categories</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Percentage Bar -->
+        <div class="live-percentage-container">
+          <div class="live-percentage-header">
+            <span>Health Score</span>
+            <span id="livePercentage">0%</span>
+          </div>
+          <div class="live-percentage-bar">
+            <div class="live-bar" id="liveBar"></div>
+            <div class="dead-bar" id="deadBar"></div>
+          </div>
+          <div class="live-percentage-legend">
+            <span><span class="dot live"></span> Live</span>
+            <span><span class="dot dead"></span> Dead</span>
+            <span><span class="dot unchecked"></span> Unchecked</span>
+          </div>
+        </div>
+
+        <!-- Categories -->
+        <div class="categories-section">
+          <h3>Categories/Groups</h3>
+          <div class="categories-grid" id="categoriesGrid">
+            <!-- Filled by JS -->
+          </div>
+        </div>
+
+        <!-- Channel List -->
+        <div class="channels-section">
+          <div class="channels-header">
+            <h3>Channels <span id="channelListCount"></span></h3>
+            <div class="channel-filters">
+              <button class="filter-btn active" data-filter="all">All</button>
+              <button class="filter-btn" data-filter="live">Live</button>
+              <button class="filter-btn" data-filter="dead">Dead</button>
+            </div>
+          </div>
+          <div class="channels-list" id="channelsList">
+            <!-- Filled by JS -->
+          </div>
+          <div id="showMoreContainer" class="show-more-container hidden">
+            <button id="showMoreBtn" class="secondary-btn">Show More Channels</button>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="result-actions">
+          <button id="downloadReportBtn" class="download-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            Download Analysis Report (PDF)
+          </button>
+          <button id="newAnalysisBtn" class="secondary-btn">Analyze Another</button>
+        </div>
+      </section>
+
+      <!-- Convert Results (PDF Download) -->
+      <section id="convertResults" class="download-section hidden">
+        <div class="success-animation">
+          <div class="checkmark-circle">
+            <svg viewBox="0 0 52 52">
+              <circle cx="26" cy="26" r="25" fill="none" stroke="currentColor" stroke-width="2"/>
+              <path fill="none" stroke="currentColor" stroke-width="3" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+            </svg>
+          </div>
+        </div>
+        <h3>Your PDF is Ready!</h3>
+        <p>Your playlist has been converted successfully</p>
+        <button id="downloadPdfBtn" class="download-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Download PDF
+        </button>
+        <button id="convertAnotherBtn" class="secondary-btn">Convert Another</button>
+      </section>
+
+      <!-- Single Channel Results -->
+      <section id="channelResults" class="channel-results hidden">
+        <div class="channel-result-card">
+          <div class="channel-status-large" id="channelStatusIcon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+              <polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+          </div>
+          <h3 id="channelStatusText">Channel Status</h3>
+          <p id="channelUrl" class="channel-url-display"></p>
+          
+          <div class="channel-details-grid">
+            <div class="channel-detail-item">
+              <span class="detail-label">Status</span>
+              <span class="detail-value" id="detailStatus">-</span>
+            </div>
+            <div class="channel-detail-item">
+              <span class="detail-label">HTTP Code</span>
+              <span class="detail-value" id="detailHttpCode">-</span>
+            </div>
+            <div class="channel-detail-item">
+              <span class="detail-label">Response Time</span>
+              <span class="detail-value" id="detailResponseTime">-</span>
+            </div>
+            <div class="channel-detail-item">
+              <span class="detail-label">Content Type</span>
+              <span class="detail-value" id="detailContentType">-</span>
+            </div>
+            <div class="channel-detail-item">
+              <span class="detail-label">URL Valid</span>
+              <span class="detail-value" id="detailUrlValid">-</span>
+            </div>
+            <div class="channel-detail-item">
+              <span class="detail-label">Protocol</span>
+              <span class="detail-value" id="detailProtocol">-</span>
+            </div>
+            <div class="channel-detail-item">
+              <span class="detail-label">Stream Type</span>
+              <span class="detail-value" id="detailStreamType">-</span>
+            </div>
+            <div class="channel-detail-item">
+              <span class="detail-label">Server</span>
+              <span class="detail-value" id="detailServer">-</span>
+            </div>
+          </div>
+          
+          <button id="checkAnotherBtn" class="secondary-btn">Check Another Channel</button>
+        </div>
+      </section>
+
+      <!-- Features Section -->
+      <section class="features">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"/>
+              <path d="M21 21l-4.35-4.35"/>
+            </svg>
+          </div>
+          <h3>Deep Analysis</h3>
+          <p>Check channel status, parse metadata, and get detailed insights</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+            </svg>
+          </div>
+          <h3>Lightning Fast</h3>
+          <p>Parallel channel checking with optimized batch processing</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+            </svg>
+          </div>
+          <h3>PDF Reports</h3>
+          <p>Export detailed analysis reports or raw playlists as PDF</p>
+        </div>
+      </section>
+
+      <!-- Supported Formats -->
+      <section class="formats">
+        <h4>Supported Formats</h4>
+        <div class="format-tags">
+          <span class="format-tag">.m3u8</span>
+          <span class="format-tag">.m3u</span>
+          <span class="format-tag">HTTP Links</span>
+          <span class="format-tag">HTTPS Links</span>
+          <span class="format-tag">TXT Playlists</span>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <p>© 2025 Stream Ninja. Free forever. No data stored.</p>
+      <div class="footer-links">
+        <span>Made with ⚡ for the IPTV community</span>
+      </div>
+    </footer>
+  </div>
+
+  <script src="app.js?v=3"></script>
+</body>
+</html>
