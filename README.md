@@ -63,6 +63,4 @@ Converts playlist to PDF and returns the file.
 - **Security:** Helmet, express-rate-limit
 - **Frontend:** Vanilla HTML/CSS/JS
 
-## License
 
-MIT
