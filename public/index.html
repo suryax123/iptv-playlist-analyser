@@ -24,7 +24,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=2">
 </head>
 <body>
   <!-- Animated Background -->
@@ -357,34 +357,39 @@
 
       <!-- Features Section -->
       <section class="features">
-        <div class="feature-card">
+        <div class="feature-card" data-number="01">
+          <div class="corner-badge">01</div>
           <div class="feature-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="11" cy="11" r="8"/>
-              <path d="M21 21l-4.35-4.35"/>
+              <path d="M9 11l3 3L22 4"/>
+              <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
             </svg>
           </div>
-          <h3>Deep Analysis</h3>
-          <p>Check channel status, parse metadata, and get detailed insights</p>
+          <h3>Stream Health Check</h3>
+          <p>Real-time validation of channel URLs with HTTP status codes, response times, and content type detection</p>
         </div>
-        <div class="feature-card">
+        <div class="feature-card" data-number="02">
+          <div class="corner-badge">02</div>
           <div class="feature-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+              <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+              <path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/>
             </svg>
           </div>
-          <h3>Lightning Fast</h3>
-          <p>Parallel channel checking with optimized batch processing</p>
+          <h3>M3U Parser</h3>
+          <p>Extracts categories, groups, channel names, and metadata from your playlists automatically</p>
         </div>
-        <div class="feature-card">
+        <div class="feature-card" data-number="03">
+          <div class="corner-badge">03</div>
           <div class="feature-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-              <polyline points="14 2 14 8 20 8"/>
+              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
             </svg>
           </div>
-          <h3>PDF Reports</h3>
-          <p>Export detailed analysis reports or raw playlists as PDF</p>
+          <h3>Export to PDF</h3>
+          <p>Download professional reports with stats and channel lists, ready to share or archive</p>
         </div>
       </section>
 
@@ -405,7 +410,7 @@
     <footer>
       <p>© 2025 Stream Ninja. Free forever. No data stored.</p>
       <div class="footer-links">
-        <span>Made with ⚡ for the IPTV community</span>
+        <span>Made with ❤️ for the IPTV community</span>
       </div>
     </footer>
 
