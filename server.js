@@ -87,6 +87,29 @@ app.use(express.urlencoded({
 }));
 
 // ============================================
+// Static Files with Caching for Performance
+// ============================================
+app.use(express.static(path.join(__dirname, 'public'), {
+  maxAge: process.env.NODE_ENV === 'production' ? '1d' : 0,
+  etag: true,
+  lastModified: true,
+  setHeaders: (res, filePath) => {
+    // Cache static assets aggressively
+    if (filePath.endsWith('.css') || filePath.endsWith('.js')) {
+      res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+    }
+    // Cache images
+    if (filePath.match(/\.(jpg|jpeg|png|gif|svg|webp|ico)$/)) {
+      res.setHeader('Cache-Control', 'public, max-age=2592000');
+    }
+    // Don't cache HTML
+    if (filePath.endsWith('.html')) {
+      res.setHeader('Cache-Control', 'no-cache, must-revalidate');
+    }
+  }
+}));
+
+// ============================================
 // Middleware: Rate Limiting (OWASP)
 // ============================================
 
@@ -133,14 +156,6 @@ if (process.env.NODE_ENV !== 'production') {
     next();
   });
 }
-
-// ============================================
-// Middleware: Static Files
-// ============================================
-app.use(express.static(path.join(__dirname, 'public'), {
-  maxAge: '1d',
-  etag: true
-}));
 
 // ============================================
 // Input Validation Functions (Security)

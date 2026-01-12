@@ -33,7 +33,7 @@
   --warning: #f59e0b;
   
   /* Glassmorphism Effects */
-  --blur-amount: 12px;
+  --blur-amount: 10px;
   --shadow-glass: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   
   /* Transitions - Optimized for performance */
@@ -97,7 +97,7 @@ body {
 .orb {
   position: absolute;
   border-radius: 50%;
-  filter: blur(60px);
+  filter: blur(50px);
   opacity: 0.3;
   will-change: transform;
   animation: float 20s infinite ease-in-out;
@@ -1579,6 +1579,11 @@ footer nav a:hover {
    ============================================ */
 
 @media (max-width: 768px) {
+  /* Reduce blur for better mobile performance */
+  :root {
+    --blur-amount: 6px;
+  }
+  
   .hero h1 {
     font-size: 32px;
   }
@@ -1611,6 +1616,16 @@ footer nav a:hover {
   .channel-details-grid {
     grid-template-columns: 1fr;
   }
+  
+  /* Simplify orbs on mobile */
+  .orb {
+    filter: blur(40px);
+    opacity: 0.2;
+  }
+  
+  .orb-2 {
+    display: none; /* Hide third orb on mobile */
+  }
 }
 
 /* ============================================
@@ -1625,6 +1640,10 @@ footer nav a:hover {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+  
+  .orb {
+    animation: none;
   }
 }
 
@@ -1643,7 +1662,29 @@ footer nav a:hover {
   .glass-card,
   .converter-card,
   .header-badge {
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+  
+  .feature-card,
+  .mode-btn,
+  .action-btn {
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+}
+
+/* Optimize for touch devices */
+@media (hover: none) and (pointer: coarse) {
+  .mode-btn,
+  .action-btn,
+  .filter-btn {
+    padding: 16px 24px;
+    min-height: 48px; /* Touch-friendly size */
+  }
+  
+  /* Remove hover effects on touch devices */
+  .glass-card:hover {
+    transform: none;
   }
 }

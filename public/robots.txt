@@ -1,0 +1,33 @@
+# StreamNinja - IPTV Analyzer Robots.txt
+
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://streamninja.app/sitemap.xml
+
+# Crawl Delay (be nice to server on free tier)
+Crawl-delay: 1
+
+# Block access to admin or sensitive areas (if any in future)
+Disallow: /api/
+Disallow: /*.json$
+
+# Allow all major search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: YandexBot
+Allow: /
