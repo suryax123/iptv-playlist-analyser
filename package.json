@@ -5,7 +5,9 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "node server.js"
+    "dev": "node server.js",
+    "minify": "node minify.js",
+    "build": "node minify.js"
   },
   "keywords": [
     "iptv",
