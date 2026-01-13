@@ -63,12 +63,6 @@ body {
   overflow-x: hidden;
   line-height: 1.6;
   position: relative;
-  animation: fadeIn 0.6s ease-out;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
 }
 
 /* ============================================
@@ -92,14 +86,6 @@ body {
   filter: blur(30px);
   opacity: 0.25;
   transform: translateZ(0);
-  will-change: transform;
-  animation: gentleFloat 25s ease-in-out infinite;
-}
-
-@keyframes gentleFloat {
-  0%, 100% { transform: translate(0, 0); }
-  33% { transform: translate(20px, -15px); }
-  66% { transform: translate(-15px, 20px); }
 }
 
 .orb-1 {
@@ -108,7 +94,6 @@ body {
   background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
   top: -150px;
   left: -150px;
-  animation-delay: 0s;
 }
 
 .orb-2 {
@@ -117,7 +102,6 @@ body {
   background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
   bottom: -200px;
   right: -200px;
-  animation-delay: 8s;
 }
 
 .orb-3 {
@@ -127,7 +111,6 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  animation-delay: 16s;
 }
 
 @keyframes float {
@@ -296,12 +279,6 @@ header {
   margin-bottom: 20px;
   color: var(--text-secondary);
   box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
-  animation: subtleGlow 4s ease-in-out infinite;
-}
-
-@keyframes subtleGlow {
-  0%, 100% { box-shadow: 0 0 15px rgba(99, 102, 241, 0.3); }
-  50% { box-shadow: 0 0 25px rgba(99, 102, 241, 0.5); }
 }
 
 .hero h1 {
