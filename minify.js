@@ -17,17 +17,39 @@ function minifyCSS(css) {
     .trim();
 }
 
-// Minify JS (basic)
+// Minify JS (basic) - Preserve strings and template literals
 function minifyJS(js) {
-  return js
+  // Store strings and template literals temporarily
+  const strings = [];
+  let counter = 0;
+  
+  // Replace strings with placeholders
+  js = js.replace(/(["'`])(?:(?=(\\?))\2.)*?\1/g, (match) => {
+    const placeholder = `___STRING_${counter}___`;
+    strings.push(match);
+    counter++;
+    return placeholder;
+  });
+  
+  // Now minify
+  js = js
     // Remove single-line comments
     .replace(/\/\/.*$/gm, '')
     // Remove multi-line comments
     .replace(/\/\*[\s\S]*?\*\//g, '')
-    // Remove extra whitespace
+    // Remove extra whitespace but preserve necessary spaces
     .replace(/\s+/g, ' ')
+    // Remove spaces around operators (but keep space after keywords)
+    .replace(/\s*([{}:;,()[\]])\s*/g, '$1')
     // Trim
     .trim();
+  
+  // Restore strings
+  strings.forEach((str, index) => {
+    js = js.replace(`___STRING_${index}___`, str);
+  });
+  
+  return js;
 }
 
 // Read and minify CSS
