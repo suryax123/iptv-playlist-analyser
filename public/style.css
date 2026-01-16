@@ -1653,3 +1653,88 @@ footer nav a:hover {
     transform: none;
   }
 }
+
+/* Styles for the SEO-Optimized Article Section */
+#iptv-guide {
+  margin: 2rem auto;
+  padding: 2rem;
+  max-width: 800px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--blur-amount));
+  -webkit-backdrop-filter: blur(var(--blur-amount));
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  box-shadow: var(--shadow-glass);
+  color: var(--text-primary);
+  text-align: center;
+}
+
+#iptv-guide h2 {
+  font-size: 2.5rem;
+  color: var(--accent-glow);
+  margin-bottom: 1rem;
+  text-shadow: 0 0 10px var(--accent-glow);
+}
+
+#iptv-guide h3 {
+  font-size: 1.75rem;
+  color: var(--primary-light);
+  margin-top: 1.5rem;
+  text-shadow: 0 0 8px var(--primary-light);
+}
+
+#iptv-guide p {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+#iptv-guide ul {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+
+#iptv-guide ul li {
+  font-size: 1rem;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+#iptv-guide ul li::before {
+  content: '\1F4CC'; /* Pushpin emoji */
+  color: var(--accent);
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+}
+
+#iptv-guide .cta-button {
+  display: inline-block;
+  margin-top: 1.5rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--primary);
+  color: var(--text-primary);
+  text-decoration: none;
+  border-radius: 8px;
+  transition: var(--transition-fast);
+  font-weight: bold;
+}
+
+#iptv-guide .cta-button:hover {
+  background: var(--primary-dark);
+  color: var(--text-secondary);
+}
+
+/* Add subtle animations */
+#iptv-guide h2, #iptv-guide h3 {
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(-10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
