@@ -1,0 +1,156 @@
+/* Custom Tailwind Extensions and Animations */
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out;
+}
+
+/* Gradient background animation */
+.bg-300\% {
+  background-size: 300% 300%;
+}
+
+/* Active mode button */
+.mode-btn.active {
+  border-color: rgb(99, 102, 241);
+  background: linear-gradient(to bottom right, rgba(99, 102, 241, 0.1), rgba(167, 139, 250, 0.1));
+}
+
+/* Filter button active state */
+.filter-btn.active {
+  background: linear-gradient(to right, rgb(99, 102, 241), rgb(167, 139, 250));
+  color: white;
+}
+
+.filter-btn:not(.active) {
+  background: rgba(51, 65, 85, 0.5);
+  color: rgb(156, 163, 175);
+}
+
+/* Loading button state */
+.action-btn.loading .btn-content {
+  display: none;
+}
+
+.action-btn.loading .btn-loading {
+  display: flex !important;
+}
+
+/* Status card variants */
+.status-card.success {
+  background: rgba(16, 185, 129, 0.1);
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.status-card.success .status-icon {
+  background: rgba(16, 185, 129, 0.2);
+  color: rgb(16, 185, 129);
+  font-size: 1.5rem;
+  width: 2rem;
+  height: 2rem;
+}
+
+.status-card.error {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+.status-card.error .status-icon {
+  background: rgba(239, 68, 68, 0.2);
+  color: rgb(239, 68, 68);
+  font-size: 1.5rem;
+  width: 2rem;
+  height: 2rem;
+}
+
+.status-card.warning {
+  background: rgba(245, 158, 11, 0.1);
+  border-color: rgba(245, 158, 11, 0.3);
+}
+
+.status-card.warning .status-icon {
+  background: rgba(245, 158, 11, 0.2);
+  color: rgb(245, 158, 11);
+  font-size: 1.5rem;
+  width: 2rem;
+  height: 2rem;
+}
+
+/* Channel status icon size control */
+.channel-status-large svg,
+.channel-status-large .status-icon {
+  width: 3rem !important;
+  height: 3rem !important;
+  font-size: 2rem !important;
+}
+
+#channelStatusIcon svg {
+  width: 3rem !important;
+  height: 3rem !important;
+}
+
+/* Channel item styling */
+.channel-item {
+  @apply flex items-center justify-between p-4 bg-slate-800/40 border border-slate-700/50 rounded-lg hover:border-primary/50 transition-all duration-300;
+}
+
+.channel-item.live {
+  @apply border-l-4 border-l-emerald-500;
+}
+
+.channel-item.dead {
+  @apply border-l-4 border-l-red-500;
+}
+
+/* Category badge */
+.category-badge {
+  @apply px-4 py-2 bg-slate-700/50 hover:bg-slate-700 border border-slate-600 rounded-lg text-sm font-medium text-gray-300 hover:text-white transition-all duration-300 cursor-pointer;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Hidden utility */
+.hidden {
+  display: none !important;
+}
+
+/* Checkmark animation */
+@keyframes checkmark {
+  0% {
+    stroke-dashoffset: 100;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.checkmark-check {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: checkmark 0.6s ease-out 0.3s forwards;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+  
+  .feature-card .corner-badge {
+    font-size: 3rem;
+  }
+}

@@ -44,8 +44,38 @@
   <!-- PWA Manifest -->
   <link rel="manifest" href="/manifest.json">
   
-  <!-- Main Stylesheet (Minified) -->
-  <link rel="stylesheet" href="style.min.css?v=7">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="tailwind-custom.css?v=1">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#6366f1',
+            secondary: '#a78bfa',
+            dark: '#0f172a',
+            darker: '#020617',
+          },
+          animation: {
+            'float': 'float 6s ease-in-out infinite',
+            'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'gradient': 'gradient 8s ease infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-20px)' },
+            },
+            gradient: {
+              '0%, 100%': { backgroundPosition: '0% 50%' },
+              '50%': { backgroundPosition: '100% 50%' },
+            }
+          }
+        }
+      }
+    }
+  </script>
   
   <!-- Structured Data / JSON-LD for SEO -->
   <script type="application/ld+json">
@@ -72,153 +102,179 @@
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2041522863254731"
      crossorigin="anonymous"></script>
 </head>
-<body>
+<body class="bg-gradient-to-br from-darker via-dark to-slate-900 min-h-screen text-gray-100">
   <!-- Animated Background -->
-  <div class="bg-animation">
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
-    <div class="grid-overlay"></div>
+  <div class="fixed inset-0 overflow-hidden pointer-events-none">
+    <div class="absolute top-0 -left-4 w-72 h-72 bg-primary opacity-20 rounded-full filter blur-3xl animate-float"></div>
+    <div class="absolute top-1/3 -right-4 w-96 h-96 bg-secondary opacity-20 rounded-full filter blur-3xl animate-float" style="animation-delay: 2s;"></div>
+    <div class="absolute bottom-0 left-1/3 w-80 h-80 bg-indigo-500 opacity-20 rounded-full filter blur-3xl animate-float" style="animation-delay: 4s;"></div>
   </div>
 
-  <div class="container">
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
     <!-- Header -->
-    <header>
-      <div class="logo">
-        <div class="logo-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <header class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-12 animate-fade-in">
+      <div class="logo flex items-center gap-3">
+        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-lg shadow-primary/50 transform hover:scale-110 transition-transform duration-300">
+          <svg class="w-7 h-7 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <polygon points="5 3 19 12 5 21 5 3"/>
             <line x1="12" y1="12" x2="19" y2="12"/>
           </svg>
         </div>
-        <span class="logo-text">Stream<span class="accent">Ninja</span></span>
+        <span class="text-2xl font-bold">
+          Stream<span class="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Ninja</span>
+        </span>
       </div>
-      <div class="header-badge">
-        <span class="pulse"></span>
+      <div class="header-badge inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-sm font-medium">
+        <span class="pulse relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+        </span>
         Free & Secure
       </div>
     </header>
 
     <!-- Main Content -->
-    <main>
+    <main class="space-y-8">
       <!-- Hero Section -->
-      <section class="hero">
-        <div class="hero-badge">⚡ Stream Ninja - Your IPTV Toolkit</div>
-        <h1>IPTV Stream<br><span class="gradient-text">Analyzer & Checker</span></h1>
-        <p>Analyze playlists, check stream status, validate URLs, and export reports. Fast, secure, and completely free.</p>
-        <p style="margin-top: 1rem;">Use our free IPTV Tester to verify your connection. As a leading M3U Analyzer, StreamNinja lets you perform a comprehensive Stream Health Check on any M3U8 Checker compatible playlist.</p>
+      <section class="hero text-center space-y-6 py-12 animate-fade-in">
+        <div class="hero-badge inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-primary/20 to-secondary/20 border border-primary/30 text-sm font-medium mb-4">
+          <span>⚡</span>
+          Stream Ninja - Your IPTV Toolkit
+        </div>
+        <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight">
+          IPTV Stream<br>
+          <span class="bg-gradient-to-r from-primary via-purple-500 to-secondary bg-clip-text text-transparent animate-gradient bg-300%">Analyzer & Checker</span>
+        </h1>
+        <p class="text-lg sm:text-xl text-gray-300 max-w-3xl mx-auto">
+          Analyze playlists, check stream status, validate URLs, and export reports. Fast, secure, and completely free.
+        </p>
+        <p class="text-base text-gray-400 max-w-2xl mx-auto">
+          Use our free IPTV Tester to verify your connection. As a leading M3U Analyzer, StreamNinja lets you perform a comprehensive Stream Health Check on any M3U8 Checker compatible playlist.
+        </p>
       </section>
 
       <!-- Mode Selection -->
-      <section class="mode-selector">
-        <button class="mode-btn active" data-mode="analyze">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="11" cy="11" r="8"/>
-            <path d="M21 21l-4.35-4.35"/>
-            <path d="M11 8v6"/>
-            <path d="M8 11h6"/>
-          </svg>
-          Analyze Playlist
+      <section class="mode-selector grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-4xl mx-auto">
+        <button class="mode-btn group relative overflow-hidden rounded-2xl bg-slate-800/50 backdrop-blur-sm border border-slate-700 hover:border-primary transition-all duration-300 p-6 text-left active shadow-lg shadow-primary/20" data-mode="analyze">
+          <div class="relative z-10 flex flex-col items-start gap-3">
+            <svg class="w-8 h-8 text-primary group-hover:scale-110 transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"/>
+              <path d="M21 21l-4.35-4.35"/>
+              <path d="M11 8v6"/>
+              <path d="M8 11h6"/>
+            </svg>
+            <span class="font-semibold text-white">Analyze Playlist</span>
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-br from-primary/0 to-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         </button>
-        <button class="mode-btn" data-mode="channel">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polygon points="5 3 19 12 5 21 5 3"/>
-          </svg>
-          Check Channel
+        <button class="mode-btn group relative overflow-hidden rounded-2xl bg-slate-800/50 backdrop-blur-sm border border-slate-700 hover:border-primary transition-all duration-300 p-6 text-left" data-mode="channel">
+          <div class="relative z-10 flex flex-col items-start gap-3">
+            <svg class="w-8 h-8 text-primary group-hover:scale-110 transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="5 3 19 12 5 21 5 3"/>
+            </svg>
+            <span class="font-semibold text-white">Check Channel</span>
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-br from-primary/0 to-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         </button>
-        <button class="mode-btn" data-mode="convert">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-            <polyline points="14 2 14 8 20 8"/>
-            <line x1="16" y1="13" x2="8" y2="13"/>
-            <line x1="16" y1="17" x2="8" y2="17"/>
-          </svg>
-          Convert to PDF
+        <button class="mode-btn group relative overflow-hidden rounded-2xl bg-slate-800/50 backdrop-blur-sm border border-slate-700 hover:border-primary transition-all duration-300 p-6 text-left" data-mode="convert">
+          <div class="relative z-10 flex flex-col items-start gap-3">
+            <svg class="w-8 h-8 text-primary group-hover:scale-110 transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+              <line x1="16" y1="13" x2="8" y2="13"/>
+              <line x1="16" y1="17" x2="8" y2="17"/>
+            </svg>
+            <span class="font-semibold text-white">Convert to PDF</span>
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-br from-primary/0 to-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         </button>
       </section>
 
       <!-- Main Card -->
-      <section class="converter-card">
-        <div class="card-glow"></div>
+      <section class="converter-card relative max-w-4xl mx-auto">
+        <div class="card-glow absolute -inset-1 bg-gradient-to-r from-primary to-secondary rounded-3xl opacity-20 blur-xl"></div>
         
-        <!-- Input Section -->
-        <div class="input-section">
-          <div class="input-group">
-            <div class="input-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
-                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
-              </svg>
+        <div class="relative bg-slate-800/60 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-6 sm:p-8 shadow-2xl">
+          <!-- Input Section -->
+          <div class="input-section space-y-4">
+            <div class="input-group relative">
+              <div class="input-icon absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+                </svg>
+              </div>
+              <input 
+                type="url" 
+                id="playlistUrl" 
+                placeholder="Paste your playlist URL here (HTTP or HTTPS)..."
+                autocomplete="off"
+                spellcheck="false"
+                class="w-full bg-slate-900/50 border border-slate-600 rounded-xl pl-12 pr-12 py-4 text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300"
+              >
+              <button id="clearBtn" class="clear-btn hidden absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition-colors p-1" title="Clear">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="18" y1="6" x2="6" y2="18"/>
+                  <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+              </button>
             </div>
-            <input 
-              type="url" 
-              id="playlistUrl" 
-              placeholder="Paste your playlist URL here (HTTP or HTTPS)..."
-              autocomplete="off"
-              spellcheck="false"
-            >
-            <button id="clearBtn" class="clear-btn hidden" title="Clear">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <line x1="18" y1="6" x2="6" y2="18"/>
-                <line x1="6" y1="6" x2="18" y2="18"/>
-              </svg>
+            <button id="actionBtn" class="action-btn relative w-full bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white font-semibold py-4 px-6 rounded-xl shadow-lg shadow-primary/30 hover:shadow-primary/50 transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98]">
+              <span class="btn-content flex items-center justify-center gap-3">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="actionBtnIcon">
+                  <circle cx="11" cy="11" r="8"/>
+                  <path d="M21 21l-4.35-4.35"/>
+                </svg>
+                <span id="actionBtnText">Analyze Playlist</span>
+              </span>
+              <span class="btn-loading hidden items-center justify-center gap-3">
+                <div class="spinner w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                <span id="loadingText">Analyzing...</span>
+              </span>
             </button>
           </div>
-          <button id="actionBtn" class="action-btn">
-            <span class="btn-content">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="actionBtnIcon">
-                <circle cx="11" cy="11" r="8"/>
-                <path d="M21 21l-4.35-4.35"/>
-              </svg>
-              <span id="actionBtnText">Analyze Playlist</span>
-            </span>
-            <span class="btn-loading">
-              <div class="spinner"></div>
-              <span id="loadingText">Analyzing...</span>
-            </span>
-          </button>
-        </div>
 
-        <!-- HTTP Warning -->
-        <div id="httpWarning" class="warning-banner hidden">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
-            <line x1="12" y1="9" x2="12" y2="13"/>
-            <line x1="12" y1="17" x2="12.01" y2="17"/>
-          </svg>
-          <span>HTTP link detected. We'll process it securely, but HTTPS is recommended.</span>
-        </div>
+          <!-- HTTP Warning -->
+          <div id="httpWarning" class="warning-banner hidden flex items-start gap-3 mt-4 p-4 bg-yellow-500/10 border border-yellow-500/30 rounded-xl text-yellow-400 text-sm">
+            <svg class="w-5 h-5 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+              <line x1="12" y1="9" x2="12" y2="13"/>
+              <line x1="12" y1="17" x2="12.01" y2="17"/>
+            </svg>
+            <span>HTTP link detected. We'll process it securely, but HTTPS is recommended.</span>
+          </div>
 
-        <!-- Status Messages -->
-        <div id="statusContainer" class="status-container hidden">
-          <div class="status-card" id="statusCard">
-            <div class="status-icon"></div>
-            <div class="status-content">
-              <span class="status-title"></span>
-              <span class="status-message"></span>
+          <!-- Status Messages -->
+          <div id="statusContainer" class="status-container hidden mt-4">
+            <div class="status-card flex items-start gap-3 p-4 rounded-xl" id="statusCard">
+              <div class="status-icon flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center"></div>
+              <div class="status-content flex-1">
+                <span class="status-title block font-semibold text-gray-100"></span>
+                <span class="status-message block text-sm text-gray-400 mt-1"></span>
+              </div>
             </div>
           </div>
-        </div>
 
-        <!-- Analysis Progress -->
-        <div id="analysisProgress" class="analysis-progress hidden">
-          <div class="progress-header">
-            <span>Checking channels...</span>
-            <span id="progressCount">0/0</span>
-          </div>
-          <div class="progress-bar-full">
-            <div class="progress-fill-animated" id="analysisProgressBar"></div>
+          <!-- Analysis Progress -->
+          <div id="analysisProgress" class="analysis-progress hidden mt-4 space-y-2">
+            <div class="progress-header flex justify-between text-sm text-gray-300">
+              <span>Checking channels...</span>
+              <span id="progressCount">0/0</span>
+            </div>
+            <div class="progress-bar-full w-full h-2 bg-slate-700 rounded-full overflow-hidden">
+              <div class="progress-fill-animated h-full bg-gradient-to-r from-primary to-secondary rounded-full transition-all duration-300" id="analysisProgressBar" style="width: 0%"></div>
+            </div>
           </div>
         </div>
       </section>
 
       <!-- Analysis Results -->
-      <section id="analysisResults" class="analysis-results hidden">
+      <section id="analysisResults" class="analysis-results hidden space-y-6 max-w-6xl mx-auto">
         <!-- Summary Cards -->
-        <div class="summary-grid">
-          <div class="summary-card">
-            <div class="summary-icon total">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <div class="summary-grid grid grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="summary-card bg-slate-800/60 backdrop-blur-xl border border-slate-700/50 rounded-xl p-6 hover:border-primary/50 transition-all duration-300 hover:scale-105">
+            <div class="summary-icon total w-12 h-12 rounded-lg bg-blue-500/10 flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <rect x="3" y="3" width="7" height="7"/>
                 <rect x="14" y="3" width="7" height="7"/>
                 <rect x="14" y="14" width="7" height="7"/>
@@ -226,38 +282,38 @@
               </svg>
             </div>
             <div class="summary-data">
-              <span class="summary-value" id="totalChannels">0</span>
-              <span class="summary-label">Total Channels</span>
+              <span class="summary-value block text-3xl font-bold text-white mb-1" id="totalChannels">0</span>
+              <span class="summary-label block text-sm text-gray-400">Total Channels</span>
             </div>
           </div>
-          <div class="summary-card">
-            <div class="summary-icon live">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <div class="summary-card bg-slate-800/60 backdrop-blur-xl border border-slate-700/50 rounded-xl p-6 hover:border-emerald-500/50 transition-all duration-300 hover:scale-105">
+            <div class="summary-icon live w-12 h-12 rounded-lg bg-emerald-500/10 flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
                 <polyline points="22 4 12 14.01 9 11.01"/>
               </svg>
             </div>
             <div class="summary-data">
-              <span class="summary-value" id="liveChannels">0</span>
-              <span class="summary-label">Live Channels</span>
+              <span class="summary-value block text-3xl font-bold text-emerald-400 mb-1" id="liveChannels">0</span>
+              <span class="summary-label block text-sm text-gray-400">Live Channels</span>
             </div>
           </div>
-          <div class="summary-card">
-            <div class="summary-icon dead">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <div class="summary-card bg-slate-800/60 backdrop-blur-xl border border-slate-700/50 rounded-xl p-6 hover:border-red-500/50 transition-all duration-300 hover:scale-105">
+            <div class="summary-icon dead w-12 h-12 rounded-lg bg-red-500/10 flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-red-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <circle cx="12" cy="12" r="10"/>
                 <line x1="15" y1="9" x2="9" y2="15"/>
                 <line x1="9" y1="9" x2="15" y2="15"/>
               </svg>
             </div>
             <div class="summary-data">
-              <span class="summary-value" id="deadChannels">0</span>
-              <span class="summary-label">Dead Channels</span>
+              <span class="summary-value block text-3xl font-bold text-red-400 mb-1" id="deadChannels">0</span>
+              <span class="summary-label block text-sm text-gray-400">Dead Channels</span>
             </div>
           </div>
-          <div class="summary-card">
-            <div class="summary-icon groups">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <div class="summary-card bg-slate-800/60 backdrop-blur-xl border border-slate-700/50 rounded-xl p-6 hover:border-purple-500/50 transition-all duration-300 hover:scale-105">
+            <div class="summary-icon groups w-12 h-12 rounded-lg bg-purple-500/10 flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-purple-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
                 <circle cx="9" cy="7" r="4"/>
                 <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
@@ -265,215 +321,221 @@
               </svg>
             </div>
             <div class="summary-data">
-              <span class="summary-value" id="groupCount">0</span>
-              <span class="summary-label">Categories</span>
+              <span class="summary-value block text-3xl font-bold text-purple-400 mb-1" id="groupCount">0</span>
+              <span class="summary-label block text-sm text-gray-400">Categories</span>
             </div>
           </div>
         </div>
 
         <!-- Live Percentage Bar -->
-        <div class="live-percentage-container">
-          <div class="live-percentage-header">
-            <span>Health Score</span>
-            <span id="livePercentage">0%</span>
+        <div class="live-percentage-container bg-slate-800/60 backdrop-blur-xl border border-slate-700/50 rounded-xl p-6">
+          <div class="live-percentage-header flex justify-between items-center mb-3">
+            <span class="text-gray-300 font-medium">Health Score</span>
+            <span id="livePercentage" class="text-2xl font-bold bg-gradient-to-r from-emerald-400 to-emerald-600 bg-clip-text text-transparent">0%</span>
           </div>
-          <div class="live-percentage-bar">
-            <div class="live-bar" id="liveBar"></div>
-            <div class="dead-bar" id="deadBar"></div>
+          <div class="live-percentage-bar relative h-3 bg-slate-700 rounded-full overflow-hidden">
+            <div class="live-bar absolute inset-y-0 left-0 bg-gradient-to-r from-emerald-500 to-emerald-400 transition-all duration-500" id="liveBar"></div>
+            <div class="dead-bar absolute inset-y-0 bg-gradient-to-r from-red-500 to-red-400 transition-all duration-500" id="deadBar"></div>
           </div>
-          <div class="live-percentage-legend">
-            <span><span class="dot live"></span> Live</span>
-            <span><span class="dot dead"></span> Dead</span>
-            <span><span class="dot unchecked"></span> Unchecked</span>
+          <div class="live-percentage-legend flex justify-center gap-6 mt-4 text-sm">
+            <span class="flex items-center gap-2"><span class="dot live w-3 h-3 rounded-full bg-emerald-500"></span> Live</span>
+            <span class="flex items-center gap-2"><span class="dot dead w-3 h-3 rounded-full bg-red-500"></span> Dead</span>
+            <span class="flex items-center gap-2"><span class="dot unchecked w-3 h-3 rounded-full bg-gray-500"></span> Unchecked</span>
           </div>
         </div>
 
         <!-- Categories -->
-        <div class="categories-section">
-          <h3>Categories/Groups</h3>
-          <div class="categories-grid" id="categoriesGrid">
+        <div class="categories-section bg-slate-800/40 backdrop-blur-xl border border-slate-700/50 rounded-xl p-6">
+          <h3 class="text-xl font-bold mb-4 text-white">Categories/Groups</h3>
+          <div class="categories-grid grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3" id="categoriesGrid">
             <!-- Filled by JS -->
           </div>
         </div>
 
         <!-- Channel List -->
         <div class="channels-section">
-          <div class="channels-header">
-            <h3>Channels <span id="channelListCount"></span></h3>
-            <div class="channel-filters">
-              <button class="filter-btn active" data-filter="all">All</button>
-              <button class="filter-btn" data-filter="live">Live</button>
-              <button class="filter-btn" data-filter="dead">Dead</button>
+          <div class="channels-header flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+            <h3 class="text-xl font-bold text-white">Channels <span id="channelListCount" class="text-gray-400"></span></h3>
+            <div class="channel-filters flex gap-2">
+              <button class="filter-btn active px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300" data-filter="all">All</button>
+              <button class="filter-btn px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300" data-filter="live">Live</button>
+              <button class="filter-btn px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300" data-filter="dead">Dead</button>
             </div>
           </div>
-          <div class="channels-list" id="channelsList">
+          <div class="channels-list space-y-2" id="channelsList">
             <!-- Filled by JS -->
           </div>
-          <div id="showMoreContainer" class="show-more-container hidden">
-            <button id="showMoreBtn" class="secondary-btn">Show More Channels</button>
+          <div id="showMoreContainer" class="show-more-container hidden text-center mt-6">
+            <button id="showMoreBtn" class="secondary-btn px-6 py-3 bg-slate-700 hover:bg-slate-600 text-white rounded-xl font-medium transition-all duration-300">Show More Channels</button>
           </div>
         </div>
 
         <!-- Action Buttons -->
-        <div class="result-actions">
-          <button id="downloadReportBtn" class="download-btn">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <div class="result-actions flex flex-col sm:flex-row gap-4">
+          <button id="downloadReportBtn" class="download-btn flex items-center justify-center gap-3 flex-1 bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white font-semibold py-4 px-6 rounded-xl shadow-lg shadow-primary/30 hover:shadow-primary/50 transition-all duration-300 transform hover:scale-[1.02]">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
               <polyline points="7 10 12 15 17 10"/>
               <line x1="12" y1="15" x2="12" y2="3"/>
             </svg>
             Download Analysis Report (PDF)
           </button>
-          <button id="newAnalysisBtn" class="secondary-btn">Analyze Another</button>
+          <button id="newAnalysisBtn" class="secondary-btn px-6 py-4 bg-slate-700 hover:bg-slate-600 text-white rounded-xl font-semibold transition-all duration-300">Analyze Another</button>
         </div>
       </section>
 
       <!-- Convert Results (PDF Download) -->
-      <section id="convertResults" class="download-section hidden">
-        <div class="success-animation">
-          <div class="checkmark-circle">
-            <svg viewBox="0 0 52 52">
-              <circle cx="26" cy="26" r="25" fill="none" stroke="currentColor" stroke-width="2"/>
-              <path fill="none" stroke="currentColor" stroke-width="3" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
-            </svg>
+      <section id="convertResults" class="download-section hidden max-w-2xl mx-auto">
+        <div class="bg-slate-800/60 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-8 text-center space-y-6">
+          <div class="success-animation flex justify-center">
+            <div class="checkmark-circle w-20 h-20 rounded-full bg-emerald-500/10 flex items-center justify-center">
+              <svg class="w-12 h-12 text-emerald-400" viewBox="0 0 52 52">
+                <circle cx="26" cy="26" r="25" fill="none" stroke="currentColor" stroke-width="2"/>
+                <path class="checkmark-check" fill="none" stroke="currentColor" stroke-width="3" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+              </svg>
+            </div>
           </div>
+          <h3 class="text-2xl font-bold text-white">Your PDF is Ready!</h3>
+          <p class="text-gray-400">Your playlist has been converted successfully</p>
+          <button id="downloadPdfBtn" class="download-btn w-full flex items-center justify-center gap-3 bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white font-semibold py-4 px-6 rounded-xl shadow-lg shadow-primary/30 hover:shadow-primary/50 transition-all duration-300 transform hover:scale-[1.02]">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            Download PDF
+          </button>
+          <button id="convertAnotherBtn" class="secondary-btn w-full px-6 py-3 bg-slate-700 hover:bg-slate-600 text-white rounded-xl font-medium transition-all duration-300">Convert Another</button>
         </div>
-        <h3>Your PDF is Ready!</h3>
-        <p>Your playlist has been converted successfully</p>
-        <button id="downloadPdfBtn" class="download-btn">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-            <polyline points="7 10 12 15 17 10"/>
-            <line x1="12" y1="15" x2="12" y2="3"/>
-          </svg>
-          Download PDF
-        </button>
-        <button id="convertAnotherBtn" class="secondary-btn">Convert Another</button>
       </section>
 
       <!-- Single Channel Results -->
-      <section id="channelResults" class="channel-results hidden">
-        <div class="channel-result-card">
-          <div class="channel-status-large" id="channelStatusIcon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-              <polyline points="22 4 12 14.01 9 11.01"/>
-            </svg>
-          </div>
-          <h3 id="channelStatusText">Channel Status</h3>
-          <p id="channelUrl" class="channel-url-display"></p>
-          
-          <div class="channel-details-grid">
-            <div class="channel-detail-item">
-              <span class="detail-label">Status</span>
-              <span class="detail-value" id="detailStatus">-</span>
-            </div>
-            <div class="channel-detail-item">
-              <span class="detail-label">HTTP Code</span>
-              <span class="detail-value" id="detailHttpCode">-</span>
-            </div>
-            <div class="channel-detail-item">
-              <span class="detail-label">Response Time</span>
-              <span class="detail-value" id="detailResponseTime">-</span>
-            </div>
-            <div class="channel-detail-item">
-              <span class="detail-label">Content Type</span>
-              <span class="detail-value" id="detailContentType">-</span>
-            </div>
-            <div class="channel-detail-item">
-              <span class="detail-label">URL Valid</span>
-              <span class="detail-value" id="detailUrlValid">-</span>
-            </div>
-            <div class="channel-detail-item">
-              <span class="detail-label">Protocol</span>
-              <span class="detail-value" id="detailProtocol">-</span>
-            </div>
-            <div class="channel-detail-item">
-              <span class="detail-label">Stream Type</span>
-              <span class="detail-value" id="detailStreamType">-</span>
-            </div>
-            <div class="channel-detail-item">
-              <span class="detail-label">Server</span>
-              <span class="detail-value" id="detailServer">-</span>
+      <section id="channelResults" class="channel-results hidden max-w-3xl mx-auto">
+        <div class="channel-result-card bg-slate-800/60 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-8 space-y-6">
+          <div class="channel-status-large flex justify-center" id="channelStatusIcon">
+            <div class="w-20 h-20 rounded-full bg-emerald-500/10 flex items-center justify-center">
+              <svg class="w-12 h-12 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22 4 12 14.01 9 11.01"/>
+              </svg>
             </div>
           </div>
+          <h3 id="channelStatusText" class="text-2xl font-bold text-center text-white">Channel Status</h3>
+          <p id="channelUrl" class="channel-url-display text-center text-sm text-gray-400 break-all"></p>
           
-          <button id="checkAnotherBtn" class="secondary-btn">Check Another Channel</button>
+          <div class="channel-details-grid grid grid-cols-2 gap-4">
+            <div class="channel-detail-item bg-slate-900/50 rounded-lg p-4">
+              <span class="detail-label block text-xs text-gray-500 mb-1">Status</span>
+              <span class="detail-value block font-semibold text-white" id="detailStatus">-</span>
+            </div>
+            <div class="channel-detail-item bg-slate-900/50 rounded-lg p-4">
+              <span class="detail-label block text-xs text-gray-500 mb-1">HTTP Code</span>
+              <span class="detail-value block font-semibold text-white" id="detailHttpCode">-</span>
+            </div>
+            <div class="channel-detail-item bg-slate-900/50 rounded-lg p-4">
+              <span class="detail-label block text-xs text-gray-500 mb-1">Response Time</span>
+              <span class="detail-value block font-semibold text-white" id="detailResponseTime">-</span>
+            </div>
+            <div class="channel-detail-item bg-slate-900/50 rounded-lg p-4">
+              <span class="detail-label block text-xs text-gray-500 mb-1">Content Type</span>
+              <span class="detail-value block font-semibold text-white" id="detailContentType">-</span>
+            </div>
+            <div class="channel-detail-item bg-slate-900/50 rounded-lg p-4">
+              <span class="detail-label block text-xs text-gray-500 mb-1">URL Valid</span>
+              <span class="detail-value block font-semibold text-white" id="detailUrlValid">-</span>
+            </div>
+            <div class="channel-detail-item bg-slate-900/50 rounded-lg p-4">
+              <span class="detail-label block text-xs text-gray-500 mb-1">Protocol</span>
+              <span class="detail-value block font-semibold text-white" id="detailProtocol">-</span>
+            </div>
+            <div class="channel-detail-item bg-slate-900/50 rounded-lg p-4">
+              <span class="detail-label block text-xs text-gray-500 mb-1">Stream Type</span>
+              <span class="detail-value block font-semibold text-white" id="detailStreamType">-</span>
+            </div>
+            <div class="channel-detail-item bg-slate-900/50 rounded-lg p-4">
+              <span class="detail-label block text-xs text-gray-500 mb-1">Server</span>
+              <span class="detail-value block font-semibold text-white" id="detailServer">-</span>
+            </div>
+          </div>
+          
+          <button id="checkAnotherBtn" class="secondary-btn w-full px-6 py-3 bg-slate-700 hover:bg-slate-600 text-white rounded-xl font-medium transition-all duration-300">Check Another Channel</button>
         </div>
       </section>
 
       <!-- Features Section -->
-      <section class="features">
-        <div class="feature-card" data-number="01">
-          <div class="corner-badge">01</div>
-          <div class="feature-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <section class="features grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto mt-16">
+        <div class="feature-card group relative overflow-hidden bg-slate-800/40 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-8 hover:border-primary/50 transition-all duration-300 hover:scale-105" data-number="01">
+          <div class="corner-badge absolute top-4 right-4 text-5xl font-bold text-slate-700/30">01</div>
+          <div class="feature-icon w-14 h-14 rounded-xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+            <svg class="w-7 h-7 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M9 11l3 3L22 4"/>
               <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
             </svg>
           </div>
-          <h3>Stream Health Check</h3>
-          <p>Real-time validation of channel URLs with HTTP status codes, response times, and content type detection</p>
+          <h3 class="text-xl font-bold text-white mb-3">Stream Health Check</h3>
+          <p class="text-gray-400 leading-relaxed">Real-time validation of channel URLs with HTTP status codes, response times, and content type detection</p>
         </div>
-        <div class="feature-card" data-number="02">
-          <div class="corner-badge">02</div>
-          <div class="feature-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <div class="feature-card group relative overflow-hidden bg-slate-800/40 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-8 hover:border-primary/50 transition-all duration-300 hover:scale-105" data-number="02">
+          <div class="corner-badge absolute top-4 right-4 text-5xl font-bold text-slate-700/30">02</div>
+          <div class="feature-icon w-14 h-14 rounded-xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+            <svg class="w-7 h-7 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
               <path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/>
             </svg>
           </div>
-          <h3>M3U Parser</h3>
-          <p>Extracts categories, groups, channel names, and metadata from your playlists automatically</p>
+          <h3 class="text-xl font-bold text-white mb-3">M3U Parser</h3>
+          <p class="text-gray-400 leading-relaxed">Extracts categories, groups, channel names, and metadata from your playlists automatically</p>
         </div>
-        <div class="feature-card" data-number="03">
-          <div class="corner-badge">03</div>
-          <div class="feature-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <div class="feature-card group relative overflow-hidden bg-slate-800/40 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-8 hover:border-primary/50 transition-all duration-300 hover:scale-105" data-number="03">
+          <div class="corner-badge absolute top-4 right-4 text-5xl font-bold text-slate-700/30">03</div>
+          <div class="feature-icon w-14 h-14 rounded-xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+            <svg class="w-7 h-7 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
               <polyline points="7 10 12 15 17 10"/>
               <line x1="12" y1="15" x2="12" y2="3"/>
             </svg>
           </div>
-          <h3>Export to PDF</h3>
-          <p>Download professional reports with stats and channel lists, ready to share or archive</p>
+          <h3 class="text-xl font-bold text-white mb-3">Export to PDF</h3>
+          <p class="text-gray-400 leading-relaxed">Download professional reports with stats and channel lists, ready to share or archive</p>
         </div>
       </section>
 
       <!-- Supported Formats -->
-      <section class="formats">
-        <h4>Supported Formats</h4>
-        <div class="format-tags">
-          <span class="format-tag">.m3u8</span>
-          <span class="format-tag">.m3u</span>
-          <span class="format-tag">HTTP Links</span>
-          <span class="format-tag">HTTPS Links</span>
-          <span class="format-tag">TXT Playlists</span>
+      <section class="formats text-center max-w-3xl mx-auto mt-12">
+        <h4 class="text-xl font-bold text-gray-300 mb-6">Supported Formats</h4>
+        <div class="format-tags flex flex-wrap justify-center gap-3">
+          <span class="format-tag px-4 py-2 bg-slate-800/60 border border-slate-700 rounded-lg text-sm font-medium text-gray-300 hover:border-primary/50 transition-all duration-300">.m3u8</span>
+          <span class="format-tag px-4 py-2 bg-slate-800/60 border border-slate-700 rounded-lg text-sm font-medium text-gray-300 hover:border-primary/50 transition-all duration-300">.m3u</span>
+          <span class="format-tag px-4 py-2 bg-slate-800/60 border border-slate-700 rounded-lg text-sm font-medium text-gray-300 hover:border-primary/50 transition-all duration-300">HTTP Links</span>
+          <span class="format-tag px-4 py-2 bg-slate-800/60 border border-slate-700 rounded-lg text-sm font-medium text-gray-300 hover:border-primary/50 transition-all duration-300">HTTPS Links</span>
+          <span class="format-tag px-4 py-2 bg-slate-800/60 border border-slate-700 rounded-lg text-sm font-medium text-gray-300 hover:border-primary/50 transition-all duration-300">TXT Playlists</span>
         </div>
       </section>
 
       <!-- SEO-Optimized Article for IPTV Testing -->
-      <section id="iptv-guide">
-        <h2>Ultimate Guide to IPTV Testing and M3U Playlist Analysis</h2>
+      <section id="iptv-guide" class="max-w-4xl mx-auto mt-16 bg-slate-800/30 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-8 md:p-12 space-y-6">
+        <h2 class="text-3xl md:text-4xl font-bold text-white mb-8">Ultimate Guide to IPTV Testing and M3U Playlist Analysis</h2>
 
-        <p><strong>Introduction</strong><br>
+        <div class="space-y-4">
+
+          <p class="text-gray-300 leading-relaxed"><strong class="text-white">Introduction</strong><br>
         IPTV (Internet Protocol Television) has revolutionized the way we consume media, offering a flexible and cost-effective alternative to traditional cable TV. However, ensuring a seamless streaming experience requires regular testing and optimization of M3U playlists. Broken links, buffering, and poor stream quality can ruin the user experience. That’s where StreamNinja comes in—your ultimate IPTV testing and M3U playlist analysis tool. With our free and secure platform, you can validate URLs, check stream health, and optimize your playlists effortlessly.</p>
 
-        <h3>What is IPTV?</h3>
-        <p>IPTV delivers television content over the internet instead of traditional satellite or cable formats. It allows users to stream live TV channels, on-demand videos, and other multimedia content directly to their devices. With its growing popularity, IPTV has become a go-to solution for cord-cutters worldwide.<br>
+          <h3 class="text-2xl font-bold text-white mt-8 mb-4">What is IPTV?</h3>
+          <p class="text-gray-300 leading-relaxed">IPTV delivers television content over the internet instead of traditional satellite or cable formats. It allows users to stream live TV channels, on-demand videos, and other multimedia content directly to their devices. With its growing popularity, IPTV has become a go-to solution for cord-cutters worldwide.<br>
         However, the quality of IPTV streams depends heavily on the reliability of the M3U playlists used. These playlists contain the URLs of the streams, and any broken or outdated links can lead to interruptions. This makes regular testing and validation essential for a smooth viewing experience.</p>
 
-        <h3>Why Test M3U Playlists?</h3>
-        <p>M3U playlists are the backbone of IPTV streaming, containing the links to your favorite channels and streams. Over time, these links may become outdated, broken, or unreliable. Testing M3U playlists ensures:</p>
-        <ul>
-          <li><strong>Stream Reliability</strong>: Identify and fix broken links.</li>
-          <li><strong>Improved Quality</strong>: Ensure streams are buffering-free and high-quality.</li>
-          <li><strong>User Satisfaction</strong>: Provide a seamless experience for viewers.</li>
-        </ul>
-        <p>By regularly testing your playlists, you can avoid interruptions and maintain a high-quality IPTV experience.</p>
+          <h3 class="text-2xl font-bold text-white mt-8 mb-4">Why Test M3U Playlists?</h3>
+          <p class="text-gray-300 leading-relaxed">M3U playlists are the backbone of IPTV streaming, containing the links to your favorite channels and streams. Over time, these links may become outdated, broken, or unreliable. Testing M3U playlists ensures:</p>
+          <ul class="list-disc list-inside space-y-2 text-gray-300 ml-4">
+            <li><strong class="text-white">Stream Reliability</strong>: Identify and fix broken links.</li>
+            <li><strong class="text-white">Improved Quality</strong>: Ensure streams are buffering-free and high-quality.</li>
+            <li><strong class="text-white">User Satisfaction</strong>: Provide a seamless experience for viewers.</li>
+          </ul>
+          <p class="text-gray-300 leading-relaxed mt-4">By regularly testing your playlists, you can avoid interruptions and maintain a high-quality IPTV experience.</p>
 
-        <h3>How StreamNinja Helps</h3>
-        <p>StreamNinja is designed to simplify IPTV testing and playlist analysis. Here’s how our tool can help:</p>
+          <h3 class="text-2xl font-bold text-white mt-8 mb-4">How StreamNinja Helps</h3>
+          <p class="text-gray-300 leading-relaxed">StreamNinja is designed to simplify IPTV testing and playlist analysis. Here’s how our tool can help:</p>
         <ul>
           <li><strong>Validate URLs</strong>: Quickly identify broken or invalid links in your M3U playlists.</li>
           <li><strong>Analyze Stream Health</strong>: Check the status of streams, including buffering and playback quality.</li>
@@ -482,125 +544,128 @@
         </ul>
         <p>Whether you’re a casual user or an IPTV provider, StreamNinja saves you time and effort by automating the testing process.</p>
 
-        <h3>Tips for Optimizing IPTV Streams</h3>
-        <ul>
-          <li><strong>Use Reliable Sources</strong>: Always choose trusted providers for your M3U playlists.</li>
-          <li><strong>Update Playlists Regularly</strong>: Remove outdated links and add new ones to keep your streams fresh.</li>
-          <li><strong>Test Frequently</strong>: Use tools like StreamNinja to validate your playlists and ensure stream health.</li>
-          <li><strong>Optimize Internet Connection</strong>: A stable and fast internet connection is crucial for smooth streaming.</li>
-          <li><strong>Avoid Overloading Playlists</strong>: Keep your playlists manageable to reduce buffering and improve performance.</li>
+          <h3 class="text-2xl font-bold text-white mt-8 mb-4">Tips for Optimizing IPTV Streams</h3>
+          <ul class="list-disc list-inside space-y-2 text-gray-300 ml-4">
+            <li><strong class="text-white">Use Reliable Sources</strong>: Always choose trusted providers for your M3U playlists.</li>
+            <li><strong class="text-white">Update Playlists Regularly</strong>: Remove outdated links and add new ones to keep your streams fresh.</li>
+            <li><strong class="text-white">Test Frequently</strong>: Use tools like StreamNinja to validate your playlists and ensure stream health.</li>
+            <li><strong class="text-white">Optimize Internet Connection</strong>: A stable and fast internet connection is crucial for smooth streaming.</li>
+            <li><strong class="text-white">Avoid Overloading Playlists</strong>: Keep your playlists manageable to reduce buffering and improve performance.</li>
         </ul>
 
-        <h3 style="color:#3aef91">Conclusion</h3>
-        <p>IPTV testing and M3U playlist analysis are essential for delivering a high-quality streaming experience. With StreamNinja, you can validate URLs, check stream health, and optimize your playlists effortlessly. Start testing your IPTV playlists today with our free tool and enjoy seamless streaming like never before!</p>
+          <h3 class="text-2xl font-bold text-emerald-400 mt-8 mb-4">Conclusion</h3>
+          <p class="text-gray-300 leading-relaxed">IPTV testing and M3U playlist analysis are essential for delivering a high-quality streaming experience. With StreamNinja, you can validate URLs, check stream health, and optimize your playlists effortlessly. Start testing your IPTV playlists today with our free tool and enjoy seamless streaming like never before!</p>
 
-        <p><a href="#" class="cta-button">Test Your IPTV Playlists Now</a></p>
+          <div class="text-center mt-8">
+            <a href="#" class="cta-button inline-block px-8 py-4 bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white font-bold rounded-xl shadow-lg shadow-primary/30 hover:shadow-primary/50 transition-all duration-300 transform hover:scale-105">Test Your IPTV Playlists Now</a>
+          </div>
+        </div>
       </section>
       <!-- End of SEO-Optimized Article -->
 
       <!-- Blog Section -->
-      <section id="blog-section" class="blog-section">
-        <h2>📝 IPTV Blog & Resources</h2>
-        <p class="blog-intro">Stay informed with our latest guides, tips, and insights about IPTV testing, M3U playlist optimization, and stream quality management.</p>
+      <section id="blog-section" class="blog-section max-w-6xl mx-auto mt-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-center text-white mb-4">📝 IPTV Blog & Resources</h2>
+        <p class="blog-intro text-center text-gray-400 mb-12 max-w-3xl mx-auto">Stay informed with our latest guides, tips, and insights about IPTV testing, M3U playlist optimization, and stream quality management.</p>
         
-        <div class="blog-grid">
+        <div class="blog-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <!-- Blog Post 1 -->
-          <article class="blog-card">
-            <div class="blog-icon">🎯</div>
-            <h3>How to Test IPTV Channels Effectively</h3>
-            <p>Learn the best practices for testing IPTV channels using our M3U8 Checker. Discover how to identify dead links, verify stream quality, and ensure your playlist is optimized for seamless viewing.</p>
-            <div class="blog-meta">
-              <span class="blog-tag">IPTV Tester</span>
-              <span class="blog-tag">Stream Health</span>
+          <article class="blog-card bg-slate-800/40 backdrop-blur-xl border border-slate-700/50 rounded-xl p-6 hover:border-primary/50 transition-all duration-300 hover:scale-105 group">
+            <div class="blog-icon text-4xl mb-4">🎯</div>
+            <h3 class="text-xl font-bold text-white mb-3 group-hover:text-primary transition-colors">How to Test IPTV Channels Effectively</h3>
+            <p class="text-gray-400 leading-relaxed mb-4">Learn the best practices for testing IPTV channels using our M3U8 Checker. Discover how to identify dead links, verify stream quality, and ensure your playlist is optimized for seamless viewing.</p>
+            <div class="blog-meta flex flex-wrap gap-2">
+              <span class="blog-tag px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-medium">IPTV Tester</span>
+              <span class="blog-tag px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-medium">Stream Health</span>
             </div>
           </article>
 
           <!-- Blog Post 2 -->
-          <article class="blog-card">
-            <div class="blog-icon">🔍</div>
-            <h3>Understanding M3U Playlist Format</h3>
-            <p>A complete guide to M3U and M3U8 playlist formats. Learn how to structure your playlists, add metadata, organize channels by categories, and use our M3U Analyzer to validate your playlist syntax.</p>
-            <div class="blog-meta">
-              <span class="blog-tag">M3U Analyzer</span>
-              <span class="blog-tag">Playlist Format</span>
+          <article class="blog-card bg-slate-800/40 backdrop-blur-xl border border-slate-700/50 rounded-xl p-6 hover:border-primary/50 transition-all duration-300 hover:scale-105 group">
+            <div class="blog-icon text-4xl mb-4">🔍</div>
+            <h3 class="text-xl font-bold text-white mb-3 group-hover:text-primary transition-colors">Understanding M3U Playlist Format</h3>
+            <p class="text-gray-400 leading-relaxed mb-4">A complete guide to M3U and M3U8 playlist formats. Learn how to structure your playlists, add metadata, organize channels by categories, and use our M3U Analyzer to validate your playlist syntax.</p>
+            <div class="blog-meta flex flex-wrap gap-2">
+              <span class="blog-tag px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-medium">M3U Analyzer</span>
+              <span class="blog-tag px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-medium">Playlist Format</span>
             </div>
           </article>
 
           <!-- Blog Post 3 -->
-          <article class="blog-card">
-            <div class="blog-icon">⚡</div>
-            <h3>Troubleshooting IPTV Stream Issues</h3>
-            <p>Experiencing buffering or connection problems? Our comprehensive guide covers common IPTV stream issues, how to diagnose them using Stream Health Check tools, and solutions to fix broken channels quickly.</p>
-            <div class="blog-meta">
-              <span class="blog-tag">Stream Health Check</span>
-              <span class="blog-tag">Troubleshooting</span>
+          <article class="blog-card bg-slate-800/40 backdrop-blur-xl border border-slate-700/50 rounded-xl p-6 hover:border-primary/50 transition-all duration-300 hover:scale-105 group">
+            <div class="blog-icon text-4xl mb-4">⚡</div>
+            <h3 class="text-xl font-bold text-white mb-3 group-hover:text-primary transition-colors">Troubleshooting IPTV Stream Issues</h3>
+            <p class="text-gray-400 leading-relaxed mb-4">Experiencing buffering or connection problems? Our comprehensive guide covers common IPTV stream issues, how to diagnose them using Stream Health Check tools, and solutions to fix broken channels quickly.</p>
+            <div class="blog-meta flex flex-wrap gap-2">
+              <span class="blog-tag px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-medium">Stream Health Check</span>
+              <span class="blog-tag px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-medium">Troubleshooting</span>
             </div>
           </article>
 
           <!-- Blog Post 4 -->
-          <article class="blog-card">
-            <div class="blog-icon">📊</div>
-            <h3>IPTV Playlist Validator Best Practices</h3>
-            <p>Master the art of playlist validation with our Playlist Validator. Learn how to maintain clean playlists, remove duplicate channels, organize content efficiently, and export professional reports.</p>
-            <div class="blog-meta">
-              <span class="blog-tag">Playlist Validator</span>
-              <span class="blog-tag">Best Practices</span>
+          <article class="blog-card bg-slate-800/40 backdrop-blur-xl border border-slate-700/50 rounded-xl p-6 hover:border-primary/50 transition-all duration-300 hover:scale-105 group">
+            <div class="blog-icon text-4xl mb-4">📊</div>
+            <h3 class="text-xl font-bold text-white mb-3 group-hover:text-primary transition-colors">IPTV Playlist Validator Best Practices</h3>
+            <p class="text-gray-400 leading-relaxed mb-4">Master the art of playlist validation with our Playlist Validator. Learn how to maintain clean playlists, remove duplicate channels, organize content efficiently, and export professional reports.</p>
+            <div class="blog-meta flex flex-wrap gap-2">
+              <span class="blog-tag px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-medium">Playlist Validator</span>
+              <span class="blog-tag px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-medium">Best Practices</span>
             </div>
           </article>
 
           <!-- Blog Post 5 -->
-          <article class="blog-card">
-            <div class="blog-icon">🚀</div>
-            <h3>Optimizing IPTV Performance</h3>
-            <p>Maximize your IPTV streaming experience with performance optimization tips. Learn about bandwidth requirements, codec selection, and how to use our Channel Checker to ensure optimal stream quality.</p>
-            <div class="blog-meta">
-              <span class="blog-tag">Performance</span>
-              <span class="blog-tag">Channel Checker</span>
+          <article class="blog-card bg-slate-800/40 backdrop-blur-xl border border-slate-700/50 rounded-xl p-6 hover:border-primary/50 transition-all duration-300 hover:scale-105 group">
+            <div class="blog-icon text-4xl mb-4">🚀</div>
+            <h3 class="text-xl font-bold text-white mb-3 group-hover:text-primary transition-colors">Optimizing IPTV Performance</h3>
+            <p class="text-gray-400 leading-relaxed mb-4">Maximize your IPTV streaming experience with performance optimization tips. Learn about bandwidth requirements, codec selection, and how to use our Channel Checker to ensure optimal stream quality.</p>
+            <div class="blog-meta flex flex-wrap gap-2">
+              <span class="blog-tag px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-medium">Performance</span>
+              <span class="blog-tag px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-medium">Channel Checker</span>
             </div>
           </article>
 
           <!-- Blog Post 6 -->
-          <article class="blog-card">
-            <div class="blog-icon">🛡️</div>
-            <h3>IPTV Security & Privacy Guide</h3>
-            <p>Protect your streaming privacy with our security guide. Learn about secure streaming protocols, privacy best practices, and how to safely test IPTV playlists without compromising your data.</p>
-            <div class="blog-meta">
-              <span class="blog-tag">Security</span>
-              <span class="blog-tag">Privacy</span>
+          <article class="blog-card bg-slate-800/40 backdrop-blur-xl border border-slate-700/50 rounded-xl p-6 hover:border-primary/50 transition-all duration-300 hover:scale-105 group">
+            <div class="blog-icon text-4xl mb-4">🛡️</div>
+            <h3 class="text-xl font-bold text-white mb-3 group-hover:text-primary transition-colors">IPTV Security & Privacy Guide</h3>
+            <p class="text-gray-400 leading-relaxed mb-4">Protect your streaming privacy with our security guide. Learn about secure streaming protocols, privacy best practices, and how to safely test IPTV playlists without compromising your data.</p>
+            <div class="blog-meta flex flex-wrap gap-2">
+              <span class="blog-tag px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-medium">Security</span>
+              <span class="blog-tag px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-medium">Privacy</span>
             </div>
           </article>
         </div>
 
-        <div class="blog-cta">
-          <h3>💡 Want to Test Your IPTV Playlist?</h3>
-          <p>Use our free IPTV Tester, M3U Analyzer, and M3U8 Checker to perform a complete Stream Health Check. Validate your playlist, identify broken channels, and export detailed reports instantly.</p>
-          <a href="#" class="cta-button" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">Start Testing Now</a>
+        <div class="blog-cta bg-gradient-to-r from-primary/10 to-secondary/10 border border-primary/30 rounded-2xl p-8 text-center mt-12">
+          <h3 class="text-2xl font-bold text-white mb-3">💡 Want to Test Your IPTV Playlist?</h3>
+          <p class="text-gray-300 mb-6">Use our free IPTV Tester, M3U Analyzer, and M3U8 Checker to perform a complete Stream Health Check. Validate your playlist, identify broken channels, and export detailed reports instantly.</p>
+          <a href="#" class="cta-button inline-block px-8 py-4 bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white font-bold rounded-xl shadow-lg shadow-primary/30 hover:shadow-primary/50 transition-all duration-300 transform hover:scale-105" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">Start Testing Now</a>
         </div>
       </section>
       <!-- End Blog Section -->
     </main>
 
     <!-- Footer -->
-    <footer>
-      <p>© 2025 Stream Ninja. Free forever. No data stored.</p>
+    <footer class="mt-20 pt-8 border-t border-slate-700/50 text-center text-gray-400">
+      <p class="mb-2">© 2025 Stream Ninja. Free forever. No data stored.</p>
       <div class="footer-links">
         <span>Made with ❤️ for the IPTV community</span>
       </div>
     </footer>
 
     <!-- Footer Disclaimer -->
-    <footer>
-        <p>StreamNinja is a technical analysis tool for testing stream connectivity and M3U syntax. We do not host, provide, or sell any media content. We do not condone piracy. This tool is strictly for educational and diagnostic purposes.</p>
+    <footer class="mt-6 text-center text-sm text-gray-500">
+        <p class="max-w-3xl mx-auto">StreamNinja is a technical analysis tool for testing stream connectivity and M3U syntax. We do not host, provide, or sell any media content. We do not condone piracy. This tool is strictly for educational and diagnostic purposes.</p>
     </footer>
 
     <!-- Footer Navigation -->
-    <footer>
+    <footer class="mt-6 pb-8">
         <nav>
-            <ul>
-                <li><a href="privacy-policy.html">Privacy Policy</a></li>
-                <li><a href="terms-of-service.html">Terms of Service</a></li>
-                <li><a href="contact-us.html">Contact Us</a></li>
-                <li><a href="about-us.html">About Us</a></li>
+            <ul class="flex flex-wrap justify-center gap-4 text-sm">
+                <li><a href="privacy-policy.html" class="text-gray-400 hover:text-primary transition-colors">Privacy Policy</a></li>
+                <li><a href="terms-of-service.html" class="text-gray-400 hover:text-primary transition-colors">Terms of Service</a></li>
+                <li><a href="contact-us.html" class="text-gray-400 hover:text-primary transition-colors">Contact Us</a></li>
+                <li><a href="about-us.html" class="text-gray-400 hover:text-primary transition-colors">About Us</a></li>
             </ul>
         </nav>
     </footer>
