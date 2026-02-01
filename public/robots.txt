@@ -12,12 +12,26 @@ Crawl-delay: 1
 # Block access to admin or sensitive areas (if any in future)
 Disallow: /api/
 Disallow: /*.json$
+Disallow: /blog-test.html
 
 # Allow all major search engines
 User-agent: Googlebot
 Allow: /
 
 User-agent: Bingbot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+# Block test pages from indexing
+User-agent: *
+Disallow: /*test*
+Disallow: /*tmp*
+Disallow: /*backup*
 Allow: /
 
 User-agent: Slurp
