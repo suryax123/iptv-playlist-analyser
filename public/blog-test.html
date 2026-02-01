@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50">
+    <div class="container mx-auto py-8 px-4">
+        <h1 class="text-3xl font-bold mb-8">Blog Functionality Test</h1>
+        
+        <!-- Test Article -->
+        <article class="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden mb-8">
+            <div class="p-8">
+                <h3 class="text-2xl font-bold text-gray-900 mb-4">Test Article</h3>
+                <p class="text-gray-600 mb-6">This is a test article to verify the expandable content functionality.</p>
+                
+                <!-- Expandable Content -->
+                <div id="test-article" style="display: none;" class="mt-6 pt-6 border-t border-gray-200">
+                    <div class="prose prose-lg max-w-none text-gray-700">
+                        <h4 class="text-xl font-semibold text-gray-900 mb-4">Expanded Content</h4>
+                        <p class="mb-4">This content should appear when you click the "Read Article" button.</p>
+                        <ul class="list-disc pl-6 mb-4">
+                            <li>Item 1</li>
+                            <li>Item 2</li>
+                            <li>Item 3</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="flex items-center justify-between">
+                    <span class="text-gray-500 text-sm">Test article</span>
+                    <button onclick="toggleArticle('test-article')" class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition-colors">Read Article</button>
+                </div>
+            </div>
+        </article>
+    </div>
+
+    <script>
+        function toggleArticle(articleId) {
+            console.log('toggleArticle called with:', articleId);
+            
+            const expandedContent = document.getElementById(articleId);
+            const button = event.target;
+            
+            console.log('expandedContent:', expandedContent);
+            console.log('button:', button);
+            
+            if (!expandedContent) {
+                console.error('Element with ID', articleId, 'not found');
+                return;
+            }
+            
+            const isHidden = expandedContent.style.display === 'none' || expandedContent.style.display === '';
+            console.log('isHidden:', isHidden);
+            
+            if (isHidden) {
+                expandedContent.style.display = 'block';
+                button.textContent = 'Show Less';
+                console.log('Content shown');
+            } else {
+                expandedContent.style.display = 'none';
+                button.textContent = 'Read Article';
+                console.log('Content hidden');
+            }
+        }
+    </script>
+</body>
+</html>

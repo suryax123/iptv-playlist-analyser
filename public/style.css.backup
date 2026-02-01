@@ -130,7 +130,7 @@ footer {
 }
 
 :root {
-  --primary: #8b5cf6;
+  --primary: #14f40ce9;
   --primary-light: #a78bfa;
   --primary-dark: #7c3aed;
   --secondary: #06b6d4;
