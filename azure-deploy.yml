@@ -1,0 +1,15 @@
+# Azure App Service Deployment
+runtime: 'linux'
+
+# Install Nginx and Node.js
+buildpack: |
+  apt-get update
+  apt-get install -y nginx
+  npm install
+
+# Startup command
+startup: |
+  # Copy nginx config
+  cp nginx.conf /etc/nginx/sites-available/default
+  nginx -g 'daemon on;'
+  npm start

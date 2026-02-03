@@ -5,7 +5,7 @@
   <!-- Home Page -->
   <url>
     <loc>https://streamninja.app/</loc>
-    <lastmod>2026-01-12</lastmod>
+    <lastmod>2026-02-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -13,7 +13,7 @@
   <!-- About Us -->
   <url>
     <loc>https://streamninja.app/about-us.html</loc>
-    <lastmod>2026-01-12</lastmod>
+    <lastmod>2026-02-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -21,7 +21,7 @@
   <!-- Contact Us -->
   <url>
     <loc>https://streamninja.app/contact-us.html</loc>
-    <lastmod>2026-01-12</lastmod>
+    <lastmod>2026-02-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -29,7 +29,7 @@
   <!-- Privacy Policy -->
   <url>
     <loc>https://streamninja.app/privacy-policy.html</loc>
-    <lastmod>2026-01-12</lastmod>
+    <lastmod>2026-02-03</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -37,7 +37,7 @@
   <!-- Terms of Service -->
   <url>
     <loc>https://streamninja.app/terms-of-service.html</loc>
-    <lastmod>2026-01-12</lastmod>
+    <lastmod>2026-02-03</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -45,7 +45,7 @@
   <!-- Blog -->
   <url>
     <loc>https://streamninja.app/blog.html</loc>
-    <lastmod>2026-02-01</lastmod>
+    <lastmod>2026-02-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
