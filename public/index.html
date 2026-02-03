@@ -44,17 +44,18 @@
   
   <!-- Inline Loading Animation CSS (loads instantly) -->
   <style>
-    /* Fix mobile scrolling issues */
-    html, body {
-      overflow-x: hidden;
-      overscroll-behavior: contain;
-      -webkit-overflow-scrolling: touch;
+    /* Fix mobile and desktop scrolling */
+    html {
       scroll-behavior: smooth;
       background: #050b14;
+      height: 100%;
     }
     body {
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior-y: contain;
       background: linear-gradient(135deg, #0c1526 0%, #050b14 100%);
       min-height: 100vh;
+      height: auto;
     }
     * {
       -webkit-tap-highlight-color: transparent;
