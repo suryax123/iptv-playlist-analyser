@@ -44,6 +44,23 @@
   
   <!-- Inline Loading Animation CSS (loads instantly) -->
   <style>
+    /* Fix mobile scrolling issues */
+    html {
+      overflow-x: hidden;
+      overscroll-behavior-y: none;
+      -webkit-overflow-scrolling: touch;
+      background: #050b14;
+    }
+    body {
+      overflow-x: hidden;
+      overscroll-behavior-y: none;
+      background: linear-gradient(135deg, #0c1526 0%, #050b14 100%);
+      min-height: 100vh;
+    }
+    * {
+      -webkit-tap-highlight-color: transparent;
+    }
+    
     #preloader {
       position: fixed;
       inset: 0;
@@ -173,7 +190,7 @@
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2041522863254731"
      crossorigin="anonymous"></script>
 </head>
-<body class="bg-gradient-to-br from-darker via-dark to-navy min-h-screen text-gray-100 relative overflow-x-hidden">
+<body class="bg-gradient-to-br from-darker via-dark to-navy min-h-screen text-gray-100 relative overflow-x-hidden" style="overscroll-behavior: none; background-attachment: fixed;">
   <!-- Animated Background -->
   <div class="fixed inset-0 overflow-hidden pointer-events-none">
     <div class="absolute top-0 -left-4 w-72 h-72 bg-primary opacity-15 rounded-full filter blur-3xl animate-float"></div>
