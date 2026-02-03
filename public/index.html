@@ -45,15 +45,14 @@
   <!-- Inline Loading Animation CSS (loads instantly) -->
   <style>
     /* Fix mobile scrolling issues */
-    html {
+    html, body {
       overflow-x: hidden;
-      overscroll-behavior-y: none;
+      overscroll-behavior: contain;
       -webkit-overflow-scrolling: touch;
+      scroll-behavior: smooth;
       background: #050b14;
     }
     body {
-      overflow-x: hidden;
-      overscroll-behavior-y: none;
       background: linear-gradient(135deg, #0c1526 0%, #050b14 100%);
       min-height: 100vh;
     }
