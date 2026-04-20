@@ -818,13 +818,15 @@ function renderChannels(channels, filter) {
   channelsList.innerHTML = toShow.map((channel, index) => {
     const responseClass = getResponseClass(channel.responseTime);
     return `
-      <div class="channel-item" data-status="${escapeHtml(channel.status)}">
-        <div class="channel-status ${escapeHtml(channel.status)}"></div>
-        <div class="channel-info">
-          <div class="channel-name">${escapeHtml(channel.name || 'Unknown')}</div>
-          <div class="channel-meta">${escapeHtml(channel.group || 'Uncategorized')}</div>
+      <div class="channel-item flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 gap-3 bg-slate-800/40 border border-slate-700/50 rounded-lg transition-all duration-300 w-full overflow-hidden" data-status="${escapeHtml(channel.status)}">
+        <div class="flex items-center gap-3 w-full flex-1 min-w-0">
+          <div class="channel-status flex-shrink-0 w-3 h-3 rounded-full ${channel.status === 'live' ? 'bg-primary' : 'bg-red-500'}"></div>
+          <div class="channel-info flex-1 min-w-0 pr-2">
+            <div class="channel-name font-bold text-white truncate w-full" title="${escapeHtml(channel.name || 'Unknown')}">${escapeHtml(channel.name || 'Unknown')}</div>
+            <div class="channel-meta text-xs text-gray-400 truncate w-full mt-0.5">${escapeHtml(channel.group || 'Uncategorized')}</div>
+          </div>
         </div>
-        ${channel.responseTime ? `<div class="channel-response ${responseClass}">${channel.responseTime}ms</div>` : ''}
+        ${channel.responseTime ? `<div class="channel-response flex-shrink-0 text-sm font-medium px-2 py-1 rounded bg-slate-900/50 self-end sm:self-auto ${responseClass}">${channel.responseTime}ms</div>` : ''}
       </div>
     `;
   }).join('');

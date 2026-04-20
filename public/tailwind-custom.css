@@ -176,7 +176,7 @@ body {
 
 /* Channel item styling with green theme */
 .channel-item {
-  @apply flex items-center justify-between p-4 bg-slate-800/40 border border-slate-700/50 rounded-lg transition-all duration-300;
+  border-width: 1px;
 }
 
 .channel-item:hover {
