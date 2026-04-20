@@ -4,9 +4,26 @@
   "description": "Free IPTV playlist analyzer and M3U8 stream tester",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#1a1a2e",
-  "theme_color": "#6366f1",
+  "background_color": "#0a0a0a",
+  "theme_color": "#22c55e",
   "orientation": "portrait-primary",
   "categories": ["utilities", "productivity"],
-  "lang": "en-US"
+  "lang": "en-US",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    }
+  ]
 }

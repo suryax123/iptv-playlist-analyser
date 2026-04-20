@@ -647,52 +647,60 @@ async function analyzePlaylist(url) {
   }
   
   try {
-    showStatus('Fetching playlist...', 'Downloading and parsing playlist content', 'info');
+    showStatus('Connecting...', 'Establishing live stream', 'info');
     analysisProgress.classList.remove('hidden');
-    analysisProgressBar.style.width = '10%';
+    analysisProgressBar.style.width = '2%';
+    progressCount.textContent = 'Connecting...';
     
-    const response = await fetch('/api/analyze', {
-      method: 'POST',
-      headers: { 
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify({ 
-        url: sanitizeUrl(url), 
-        checkChannels: true, 
-        maxChannelsToCheck: 50 
-      })
+    const streamUrl = `/api/analyze-stream?url=${encodeURIComponent(sanitizeUrl(url))}&maxChannelsToCheck=10000`;
+    const eventSource = new EventSource(streamUrl);
+    
+    eventSource.addEventListener('status', (e) => {
+      const data = JSON.parse(e.data);
+      showStatus(data.message, data.detail, 'info');
     });
-    
-    const responseText = await response.text();
-    
-    let data;
-    try {
-      data = JSON.parse(responseText);
-    } catch (parseError) {
-      console.error('Response was not JSON:', responseText.substring(0, 200));
-      throw new Error('Server returned an invalid response. Please try again.');
-    }
-    
-    if (!response.ok) {
-      throw new Error(data.error || 'Analysis failed');
-    }
-    
-    analysisProgressBar.style.width = '100%';
-    
-    currentAnalysis = data;
-    currentPlaylistUrl = url;
-    
-    analysisProgress.classList.add('hidden');
-    hideStatus();
-    
-    displayAnalysisResults(data);
+
+    eventSource.addEventListener('progress', (e) => {
+      const data = JSON.parse(e.data);
+      analysisProgressBar.style.width = `${data.percentage}%`;
+      progressCount.textContent = `${data.checked} / ${data.total} tested (${data.live} Live, ${data.dead} Dead)`;
+    });
+
+    eventSource.addEventListener('complete', (e) => {
+      eventSource.close();
+      const data = JSON.parse(e.data);
+      
+      analysisProgressBar.style.width = '100%';
+      currentAnalysis = data;
+      currentPlaylistUrl = url;
+      
+      analysisProgress.classList.add('hidden');
+      hideStatus();
+      displayAnalysisResults(data);
+      setLoading(false);
+    });
+
+    eventSource.addEventListener('error', (e) => {
+      eventSource.close();
+      setLoading(false);
+      analysisProgress.classList.add('hidden');
+      
+      if (e.data) {
+        try {
+          const errorData = JSON.parse(e.data);
+          showStatus('Error', errorData.error || 'Server error', 'error');
+        } catch(err) {
+          showStatus('Error', 'Connection to server lost', 'error');
+        }
+      } else {
+        showStatus('Error', 'Stream disconnected unexpectedly. The playlist might be too large or the server timed out.', 'error');
+      }
+    });
     
   } catch (error) {
     console.error('Analysis error:', error);
-    showStatus('Error', error.message || 'Analysis failed', 'error');
+    showStatus('Error', error.message || 'Analysis setup failed', 'error');
     analysisProgress.classList.add('hidden');
-  } finally {
     setLoading(false);
   }
 }

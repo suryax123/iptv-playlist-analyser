@@ -31,7 +31,7 @@ const PORT = process.env.PORT || 3000;
 
 // Input validation constants
 const MAX_URL_LENGTH = 2048;
-const MAX_CHANNELS_TO_CHECK = 100;
+const MAX_CHANNELS_TO_CHECK = 10000;
 const MAX_PLAYLIST_SIZE = 10 * 1024 * 1024; // 10MB
 const ALLOWED_PROTOCOLS = ['http:', 'https:'];
 
@@ -44,9 +44,47 @@ app.use(helmet({
       defaultSrc: ["'self'"],
       styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://cdn.tailwindcss.com"],
       fontSrc: ["'self'", "https://fonts.gstatic.com"],
-      scriptSrc: ["'self'", "'unsafe-inline'", "https://cdnjs.cloudflare.com", "https://cdn.tailwindcss.com", "https://pagead2.googlesyndication.com"],
-      imgSrc: ["'self'", "data:", "blob:", "https://pagead2.googlesyndication.com"],
-      connectSrc: ["'self'"],
+      scriptSrc: [
+        "'self'", 
+        "'unsafe-inline'", 
+        "https://cdnjs.cloudflare.com", 
+        "https://cdn.tailwindcss.com", 
+        "https://pagead2.googlesyndication.com",
+        "https://adservice.google.com",
+        "https://googleads.g.doubleclick.net",
+        "https://www.googletagmanager.com",
+        "https://ep1.adtrafficquality.google",
+        "https://ep2.adtrafficquality.google"
+      ],
+      scriptSrcAttr: ["'unsafe-inline'"], // Allow inline event handlers
+      imgSrc: [
+        "'self'", 
+        "data:", 
+        "blob:", 
+        "https://pagead2.googlesyndication.com",
+        "https://googleads.g.doubleclick.net",
+        "https://www.google.com",
+        "https://www.gstatic.com"
+      ],
+      connectSrc: [
+        "'self'",
+        "https://pagead2.googlesyndication.com",
+        "https://googleads.g.doubleclick.net",
+        "https://adservice.google.com",
+        "https://www.google-analytics.com",
+        "https://www.googletagmanager.com",
+        "https://ep1.adtrafficquality.google",
+        "https://ep2.adtrafficquality.google"
+      ],
+      frameSrc: [
+        "'self'",
+        "https://googleads.g.doubleclick.net",
+        "https://www.google.com",
+        "https://pagead2.googlesyndication.com",
+        "https://ep1.adtrafficquality.google",
+        "https://ep2.adtrafficquality.google"
+      ],
+      childSrc: ["'self'", "https://googleads.g.doubleclick.net"],
     },
   },
   crossOriginEmbedderPolicy: false,
@@ -565,7 +603,8 @@ app.post('/api/analyze', analysisLimiter, async (req, res) => {
     
     if (checkChannels && channels.length > 0) {
       const toCheck = channels.slice(0, maxChannelsToCheck);
-      checkedChannels = await batchCheckChannels(toCheck, 5, 8000);
+      // Increased concurrency to quickly process large playlists without locking node
+      checkedChannels = await batchCheckChannels(toCheck, 50, 3000);
       
       if (channels.length > maxChannelsToCheck) {
         checkedChannels = [
@@ -604,8 +643,8 @@ app.post('/api/analyze', analysisLimiter, async (req, res) => {
       groups: Object.entries(groups)
         .map(([name, count]) => ({ name, count }))
         .sort((a, b) => b.count - a.count)
-        .slice(0, 50), // Limit groups in response
-      channels: checkedChannels.slice(0, 200) // Limit channels in response
+        .slice(0, 500), // Limit groups in response
+      channels: checkedChannels.slice(0, 10000) // Changed to allow full list to be returned
     };
     
     res.json(analysis);
@@ -613,6 +652,141 @@ app.post('/api/analyze', analysisLimiter, async (req, res) => {
   } catch (error) {
     console.error('Analysis error:', error.message);
     res.status(500).json({ error: 'Analysis failed' });
+  }
+});
+
+/**
+ * Live Analysis Stream (SSE) - Prevents Browser Timeout on large lists
+ */
+app.get('/api/analyze-stream', analysisLimiter, async (req, res) => {
+  res.setHeader('Content-Type', 'text/event-stream');
+  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('Connection', 'keep-alive');
+  res.setHeader('x-no-compression', 'true'); // Required so compression doesn't buffer chunks
+  res.flushHeaders();
+
+  const sendEvent = (type, data) => {
+    res.write(`event: ${type}\ndata: ${JSON.stringify(data)}\n\n`);
+  };
+
+  try {
+    const validation = validateUrl(req.query.url);
+    if (!validation.valid) {
+      sendEvent('error', { error: validation.error });
+      return res.end();
+    }
+    
+    let url = validation.url;
+    const maxChannelsToCheck = Math.min(parseInt(req.query.maxChannelsToCheck) || 50, MAX_CHANNELS_TO_CHECK);
+    
+    if (isHttpUrl(url)) {
+      const result = await tryHttpsUpgrade(url);
+      url = result.url;
+    }
+
+    sendEvent('status', { message: 'Fetching playlist...', detail: 'Downloading content' });
+    
+    let response;
+    try {
+      response = await secureFetch(url);
+    } catch (fetchErr) {
+      sendEvent('error', { error: 'Could not fetch playlist: ' + fetchErr.message });
+      return res.end();
+    }
+    
+    const content = response.data;
+    if (!isValidPlaylistContent(content)) {
+      sendEvent('error', { error: 'Invalid playlist content' });
+      return res.end();
+    }
+
+    const channels = parsePlaylist(content);
+    if (channels.length === 0) {
+      sendEvent('error', { error: 'No channels found in playlist' });
+      return res.end();
+    }
+
+    const groups = {};
+    channels.forEach(ch => {
+      const group = ch.group || 'Uncategorized';
+      groups[group] = (groups[group] || 0) + 1;
+    });
+
+    let checkedChannels = [];
+    const toCheck = channels.slice(0, maxChannelsToCheck);
+    
+    sendEvent('status', { message: 'Analyzing channels...', detail: `Testing ${toCheck.length} streams concurrently` });
+
+    // Stream batches
+    const maxConcurrent = 50;
+    const timeout = 3000;
+    
+    for (let i = 0; i < toCheck.length; i += maxConcurrent) {
+      const batch = toCheck.slice(i, i + maxConcurrent);
+      const batchResults = await Promise.all(
+        batch.map(async (channel) => {
+          if (!channel.url) return { ...channel, status: 'invalid' };
+          const health = await checkChannelHealth(channel.url, timeout);
+          return { ...channel, ...health };
+        })
+      );
+      checkedChannels.push(...batchResults);
+      
+      const liveCount = checkedChannels.filter(c => c.status === 'live').length;
+      const deadCount = checkedChannels.filter(c => c.status === 'dead').length;
+      
+      sendEvent('progress', { 
+        checked: checkedChannels.length, 
+        total: toCheck.length,
+        live: liveCount,
+        dead: deadCount,
+        percentage: Math.round((checkedChannels.length / toCheck.length) * 100)
+      });
+    }
+
+    if (channels.length > maxChannelsToCheck) {
+      checkedChannels = [
+        ...checkedChannels,
+        ...channels.slice(maxChannelsToCheck).map(ch => ({ ...ch, status: 'unchecked' }))
+      ];
+    }
+
+    const liveCount = checkedChannels.filter(c => c.status === 'live').length;
+    const deadCount = checkedChannels.filter(c => c.status === 'dead').length;
+    const liveWithResponse = checkedChannels.filter(c => c.status === 'live' && c.responseTime);
+    const avgResponseTime = liveWithResponse.length > 0 
+      ? Math.round(liveWithResponse.reduce((sum, c) => sum + c.responseTime, 0) / liveWithResponse.length)
+      : 0;
+
+    const analysis = {
+      url,
+      isHttp: isHttpUrl(url),
+      timestamp: new Date().toISOString(),
+      summary: {
+        totalChannels: channels.length,
+        checkedChannels: Math.min(maxChannelsToCheck, channels.length),
+        liveChannels: liveCount,
+        deadChannels: deadCount,
+        uncheckedChannels: Math.max(0, channels.length - maxChannelsToCheck),
+        livePercentage: channels.length > 0 
+          ? Math.round((liveCount / Math.min(maxChannelsToCheck, channels.length)) * 100) 
+          : 0,
+        avgResponseTime,
+        groupCount: Object.keys(groups).length
+      },
+      groups: Object.entries(groups)
+        .map(([name, count]) => ({ name, count }))
+        .sort((a, b) => b.count - a.count)
+        .slice(0, 500),
+      channels: checkedChannels.slice(0, 10000)
+    };
+    
+    sendEvent('complete', analysis);
+    res.end();
+  } catch (error) {
+    console.error('Streaming error:', error);
+    sendEvent('error', { error: 'Analysis stream failed' });
+    res.end();
   }
 });
 

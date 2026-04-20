@@ -1,131 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy - StreamNinja</title>
-    <meta name="description" content="StreamNinja Privacy Policy - We don't store your data.">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%236366f1'/%3E%3Cstop offset='100%25' style='stop-color:%23a78bfa'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='20' fill='url(%23g)'/%3E%3Cpolygon points='35,25 75,50 35,75' fill='white'/%3E%3Cline x1='50' y1='50' x2='75' y2='50' stroke='white' stroke-width='4'/%3E%3C/svg%3E">
-    <link rel="stylesheet" href="style.min.css?v=6">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2041522863254731"
-     crossorigin="anonymous"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Privacy Policy - Free IPTV Analyzer | StreamNinja</title>
+  <meta name="description" content="StreamNinja Privacy Policy">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="manifest" href="/manifest.json">
+  
+  <!-- Add Tailwind -->
+  <link rel="stylesheet" href="tailwind-built.css?v=1">
+  <link rel="stylesheet" href="tailwind-custom.css?v=10">
 </head>
-<body>
-    <!-- Animated Background -->
-    <div class="bg-animation">
-        <div class="orb orb-1"></div>
-        <div class="orb orb-2"></div>
-        <div class="orb orb-3"></div>
-        <div class="grid-overlay"></div>
+<body class="bg-gradient-to-br from-darker via-dark to-navy min-h-screen text-gray-100 relative overflow-x-hidden">
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <header class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-12 animate-fade-in">
+      <div class="logo flex items-center gap-3">
+        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-lg shadow-primary/50 transform hover:scale-110 transition-transform duration-300">
+          <svg class="w-6 h-6 sm:w-7 sm:h-7 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="5 3 19 12 5 21 5 3"/>
+            <line x1="12" y1="12" x2="19" y2="12"/>
+          </svg>
+        </div>
+        <span class="text-xl sm:text-2xl font-bold">
+          Stream<span class="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Ninja</span>
+        </span>
+      </div>
+      <div class="header-badge inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/30 text-primary text-sm font-medium shadow-lg shadow-primary/20">
+        <span class="pulse relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+        </span>
+        Free & Secure
+      </div>
+    </header>
+    
+    <nav aria-label="Breadcrumb" class="mb-6">
+      <ol class="flex items-center gap-2 text-sm text-gray-400">
+        <li><a href="/" class="hover:text-primary transition-colors">Home</a></li>
+        <li class="text-gray-600">/</li>
+        <li class="text-white">Privacy Policy</li>
+      </ol>
+    </nav>
+    
+    <main class="max-w-4xl mx-auto space-y-6 sm:space-y-8 bg-slate-800/40 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-6 sm:p-10 mb-12">
+        <h1 class="text-3xl sm:text-4xl font-bold text-white mb-6">Privacy Policy</h1>
+        <div class="prose prose-invert max-w-none text-gray-300">
+            
+    <p class="mb-4 text-lg text-gray-300 leading-relaxed">At <strong class="text-white">StreamNinja</strong>, we hold your privacy and data security in the highest regard. This privacy policy explains our philosophy regarding data collection, how our infrastructure handles your inputs, and exactly what happens to your network traffic when you use our M3U analyzer tool.</p>
+    <div class="bg-primary/10 border border-primary/30 p-4 rounded-xl mb-6">
+        <p class="text-primary font-medium text-sm">💡 <strong class="text-white">TL;DR:</strong> We do not log, save, or track your IPTV playlists, stream tokens, passwords, or the URLs you test inside our platform.</p>
     </div>
+    
+    <h2 class="text-2xl font-bold text-white mt-10 mb-4 border-b border-slate-700 pb-2">1. Data Storage & Local Processing</h2>
+    <p class="mb-4 text-gray-400 leading-relaxed tracking-wide">
+        When you submit an M3U playlist URL to the StreamNinja platform, our backend infrastructure fetches the text strictly into volatile memory (RAM) to parse the file structure for HTTP networking checks and <code class="text-white font-mono bg-slate-800 px-1 rounded">tvg-id</code> validation. 
+    </p>
+    <ul class="list-disc pl-6 space-y-2 mb-6 text-gray-400">
+        <li><span class="text-white">No Database Storage:</span> We do not possess a database infrastructure connected to user inputs. Your M3U lists never get saved to a disk.</li>
+        <li><span class="text-white">Client-Side Operations:</span> Generation of your PDF analysis reports happens entirely inside your browser using JavaScript memory. The PDF file is rendered locally on your device; it is not created on or downloaded from our servers.</li>
+    </ul>
 
-    <div class="container">
-        <!-- Header -->
-        <header>
-            <div class="logo">
-                <div class="logo-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polygon points="5 3 19 12 5 21 5 3"/>
-                        <line x1="12" y1="12" x2="19" y2="12"/>
-                    </svg>
-                </div>
-                <span class="logo-text">Stream<span class="accent">Ninja</span></span>
-            </div>
-            <div class="header-badge">
-                <span class="pulse"></span>
-                Free & Secure
-            </div>
-        </header>
+    <h2 class="text-2xl font-bold text-white mt-8 mb-4 border-b border-slate-700 pb-2">2. Usage Analytics</h2>
+    <p class="mb-4 text-gray-400 leading-relaxed tracking-wide">
+        To continuously monitor server stability, rate limits, and DDOS attack prevention, we log standard web server telemetry (such as connection timestamps, anonymous IP address hashes, and aggregate HTTP error codes). <strong class="text-white">Under no circumstances</strong> do these logs include the contents of the URLs or files you are running through our testing algorithms.
+    </p>
+    
+    <h2 class="text-2xl font-bold text-white mt-8 mb-4 border-b border-slate-700 pb-2">3. Cookies and Caching</h2>
+    <p class="mb-4 text-gray-400 leading-relaxed tracking-wide">
+        StreamNinja does not deploy any tracking cookies, third-party marketing pixels (such as Facebook/Meta Pixels), or affiliate retargeting IDs. 
+        We optionally store <code class="text-white font-mono bg-slate-800 px-1 rounded">Service Worker</code> caching packets locally in your browser. This is done strictly to ensure our platform can load instantly upon your return and offer basic functionality and cached CSS without requiring excess network requests (PWA standard capability).
+    </p>
 
-        <!-- Main Content -->
-        <main>
-            <section class="hero">
-                <div class="hero-badge">🔒 Privacy Policy</div>
-                <h1>Your Privacy<br><span class="gradient-text">Matters</span></h1>
-                <p>We are committed to protecting your privacy. Learn how we handle your data.</p>
-            </section>
+    <h2 class="text-2xl font-bold text-white mt-8 mb-4 border-b border-slate-700 pb-2">Contact Us</h2>
+    <p class="mb-4 text-gray-400 leading-relaxed tracking-wide">
+        If you have specific technical questions regarding our Server-Sent Events implementation, data streaming security protocols, or this privacy statement, please refer to our <a href="contact-us.html" class="text-primary hover:text-white transition-colors underline decoration-primary/30">Contact Us</a> page.
+    </p>
 
-            <!-- Content Card -->
-            <section class="converter-card" style="animation-delay: 0.3s;">
-                <div class="card-glow"></div>
-                <div style="max-width: 800px; margin: 0 auto;">
-                    <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 12px; padding: 20px; margin-bottom: 30px;">
-                        <p style="color: var(--success); font-size: 16px; margin: 0; font-weight: 500;">
-                            ✅ <strong>TL;DR:</strong> We don't store any of your data. Everything is processed temporarily and securely.
-                        </p>
-                    </div>
+        </div>
+    </main>
 
-                    <h2 style="font-size: 24px; margin-bottom: 15px; color: var(--text-primary);">Data Collection</h2>
-                    <p style="color: var(--text-secondary); font-size: 16px; line-height: 1.8; margin-bottom: 25px;">
-                        StreamNinja does <strong>not</strong> collect, store, or share any personal data or playlist information. When you submit a playlist URL:
-                    </p>
-                    <ul style="list-style: none; padding: 0; margin-bottom: 30px;">
-                        <li style="padding: 10px 0; color: var(--text-secondary); display: flex; align-items: start; gap: 10px;">
-                            <span style="color: var(--primary-light);">•</span>
-                            <span>URLs are processed in real-time and never saved to any database</span>
-                        </li>
-                        <li style="padding: 10px 0; color: var(--text-secondary); display: flex; align-items: start; gap: 10px;">
-                            <span style="color: var(--primary-light);">•</span>
-                            <span>Playlist content is temporarily held in server memory only during analysis</span>
-                        </li>
-                        <li style="padding: 10px 0; color: var(--text-secondary); display: flex; align-items: start; gap: 10px;">
-                            <span style="color: var(--primary-light);">•</span>
-                            <span>All data is immediately discarded after processing completes</span>
-                        </li>
-                        <li style="padding: 10px 0; color: var(--text-secondary); display: flex; align-items: start; gap: 10px;">
-                            <span style="color: var(--primary-light);">•</span>
-                            <span>No user accounts, no tracking, no cookies</span>
-                        </li>
-                    </ul>
+    <!-- Footer -->
+    <footer class="mt-20 pt-8 border-t border-slate-700/50 text-center text-gray-400">
+      <p class="mb-2">© 2025 Stream Ninja. Free forever. No data stored.</p>
+      <div class="footer-links">
+        <span>Made with ❤️ for the IPTV community</span>
+      </div>
+    </footer>
 
-                    <h2 style="font-size: 24px; margin-bottom: 15px; color: var(--text-primary);">Security</h2>
-                    <p style="color: var(--text-secondary); font-size: 16px; line-height: 1.8; margin-bottom: 30px;">
-                        We employ industry-standard security measures including rate limiting, input validation, and secure HTTPS connections to protect the integrity of our service and prevent abuse.
-                    </p>
+    <!-- Footer Disclaimer -->
+    <footer class="mt-6 text-center text-sm text-gray-500">
+        <p class="max-w-3xl mx-auto">StreamNinja is a technical analysis tool for testing stream connectivity and M3U syntax. We do not host, provide, or sell any media content. We do not condone piracy. This tool is strictly for educational and diagnostic purposes.</p>
+    </footer>
 
-                    <h2 style="font-size: 24px; margin-bottom: 15px; color: var(--text-primary);">Third-Party Services</h2>
-                    <p style="color: var(--text-secondary); font-size: 16px; line-height: 1.8; margin-bottom: 30px;">
-                        StreamNinja may use third-party services for hosting and content delivery. These services operate under their own privacy policies. We do not share any user data with third parties.
-                    </p>
+    <!-- Footer Navigation -->
+    <footer class="mt-6 pb-8">
+        <nav>
+            <ul class="flex flex-wrap justify-center gap-4 text-sm">
+                <li><a href="blog.html" class="text-gray-400 hover:text-primary transition-colors">Tech Blog</a></li>
+                <li><a href="privacy-policy.html" class="text-gray-400 hover:text-primary transition-colors">Privacy Policy</a></li>
+                <li><a href="terms-of-service.html" class="text-gray-400 hover:text-primary transition-colors">Terms of Service</a></li>
+                <li><a href="contact-us.html" class="text-gray-400 hover:text-primary transition-colors">Contact Us</a></li>
+                <li><a href="about-us.html" class="text-gray-400 hover:text-primary transition-colors">About Us</a></li>
+            </ul>
+        </nav>
+    </footer>
+  </div>
 
-                    <h2 style="font-size: 24px; margin-bottom: 15px; color: var(--text-primary);">Analytics</h2>
-                    <p style="color: var(--text-secondary); font-size: 16px; line-height: 1.8; margin-bottom: 30px;">
-                        We may use basic, privacy-respecting analytics (like server logs) to monitor service performance and detect issues. These logs do not contain personal information or playlist content.
-                    </p>
-
-                    <h2 style="font-size: 24px; margin-bottom: 15px; color: var(--text-primary);">Changes to This Policy</h2>
-                    <p style="color: var(--text-secondary); font-size: 16px; line-height: 1.8; margin-bottom: 30px;">
-                        We may update this privacy policy from time to time. Any changes will be posted on this page with an updated revision date.
-                    </p>
-
-                    <p style="color: var(--text-muted); font-size: 14px; margin-top: 40px; margin-bottom: 30px;">
-                        Last updated: January 2025
-                    </p>
-
-                    <div style="text-align: center; margin-top: 40px;">
-                        <a href="index.html" class="secondary-btn" style="display: inline-block; text-decoration: none;">
-                            ← Back to Home
-                        </a>
-                    </div>
-                </div>
-            </section>
-        </main>
-
-        <!-- Footer -->
-        <footer>
-            <p>© 2025 Stream Ninja. Free forever. No data stored.</p>
-            <div class="footer-links">
-                <span>Made with ❤️ for the IPTV community</span>
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="privacy-policy.html">Privacy Policy</a></li>
-                    <li><a href="terms-of-service.html">Terms of Service</a></li>
-                    <li><a href="contact-us.html">Contact Us</a></li>
-                    <li><a href="about-us.html">About Us</a></li>
-                </ul>
-            </nav>
-        </footer>
-    </div>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').catch(() => {});
+      });
+    }
+  </script>
 </body>
 </html>
