@@ -46,7 +46,7 @@ const ALLOWED_PROTOCOLS = ['http:', 'https:'];
 // ============================================
 function init() {
   setupEventListeners();
-  updateModeUI();
+  switchMode('analyze');
 }
 
 // ============================================
