@@ -316,8 +316,19 @@ async function tryHttpsUpgrade(url) {
   
   const httpsUrl = url.replace('http://', 'https://');
   try {
-    await axios.head(httpsUrl, { timeout: 3000, maxRedirects: 2 });
-    return { url: httpsUrl, upgraded: true };
+    const response = await axios.get(httpsUrl, {
+      timeout: 3000,
+      maxRedirects: 2,
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+        'Accept': '*/*',
+        'Range': 'bytes=0-0'
+      },
+      responseType: 'text',
+      validateStatus: () => true
+    });
+    const reachable = (response.status >= 200 && response.status < 400) || response.status === 401 || response.status === 403 || response.status === 405 || response.status === 416;
+    return reachable ? { url: httpsUrl, upgraded: true } : { url, upgraded: false };
   } catch {
     return { url, upgraded: false };
   }
@@ -397,19 +408,37 @@ function parsePlaylist(content) {
  */
 async function checkChannelHealth(url, timeout = 8000) {
   const startTime = Date.now();
+  const headers = { 
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+    'Accept': '*/*',
+    'Range': 'bytes=0-0'
+  };
+
+  const isSuccessfulStatus = (status) => {
+    return (status >= 200 && status < 400) || status === 401 || status === 403 || status === 405 || status === 416;
+  };
+
   try {
-    const response = await axios.head(url, {
+    let response = await axios.head(url, {
       timeout: timeout,
       maxRedirects: 3,
       validateStatus: () => true,
-      headers: { 
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
-      }
+      headers
     });
+
+    if (!isSuccessfulStatus(response.status)) {
+      response = await axios.get(url, {
+        timeout: timeout,
+        maxRedirects: 3,
+        validateStatus: () => true,
+        responseType: 'text',
+        headers
+      });
+    }
     
     const responseTime = Date.now() - startTime;
     return {
-      status: response.status >= 200 && response.status < 400 ? 'live' : 'dead',
+      status: isSuccessfulStatus(response.status) ? 'live' : 'dead',
       httpStatus: response.status,
       responseTime: responseTime,
       contentType: response.headers['content-type'] || null

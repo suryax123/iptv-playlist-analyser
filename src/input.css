@@ -1,3 +1,713 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+
+/* Custom Tailwind Extensions and Animations - Green Gym Theme */
+/* Google Fonts loaded in HTML head for better performance */
+
+:root {
+  --primary: #22c55e;
+  --secondary: #16a34a;
+  --accent: #84cc16;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+/* Enhanced animations */
+@keyframes float {
+  0%, 100% { 
+    transform: translateY(0px) rotate(0deg); 
+    opacity: 0.7;
+  }
+  50% { 
+    transform: translateY(-20px) rotate(2deg); 
+    opacity: 1;
+  }
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out;
+}
+
+/* Gradient background animation */
+.bg-300\% {
+  background-size: 300% 300%;
+}
+
+/* Card glow effects */
+.card-glow {
+  filter: blur(20px);
+  opacity: 0.4;
+}
+
+/* Mode selector enhancements */
+.mode-btn {
+  position: relative;
+  backdrop-filter: blur(20px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mode-btn:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(34, 197, 94, 0.15);
+}
+
+/* Active mode button with green theme */
+.mode-btn.active {
+  border-color: var(--primary);
+  background: linear-gradient(to bottom right, rgba(34, 197, 94, 0.1), rgba(132, 204, 22, 0.1));
+  box-shadow: 0 0 20px rgba(34, 197, 94, 0.2);
+}
+
+/* Filter button active state with green theme */
+.filter-btn.active {
+  background: linear-gradient(to right, var(--primary), var(--secondary));
+  color: #000;
+  font-weight: 700;
+  text-shadow: none;
+}
+
+.filter-btn:not(.active) {
+  background: rgba(51, 65, 85, 0.5);
+  color: rgb(156, 163, 175);
+  transition: all 0.3s ease;
+}
+
+.filter-btn:not(.active):hover {
+  background: rgba(34, 197, 94, 0.1);
+  color: var(--primary);
+  border-color: rgba(34, 197, 94, 0.3);
+}
+
+/* Loading button state */
+.action-btn {
+  position: relative;
+  overflow: hidden;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 800;
+}
+
+.action-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
+}
+
+.action-btn:hover::before {
+  left: 100%;
+}
+
+.action-btn.loading .btn-content {
+  display: none;
+}
+
+.action-btn.loading .btn-loading {
+  display: flex !important;
+}
+
+/* Status card variants with green theme */
+.status-card.success {
+  background: rgba(34, 197, 94, 0.1);
+  border-color: rgba(34, 197, 94, 0.3);
+}
+
+.status-card.success .status-icon {
+  background: rgba(34, 197, 94, 0.2);
+  color: var(--primary);
+  font-size: 1.5rem;
+  width: 2rem;
+  height: 2rem;
+}
+
+.status-card.error {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+.status-card.error .status-icon {
+  background: rgba(239, 68, 68, 0.2);
+  color: rgb(239, 68, 68);
+  font-size: 1.5rem;
+  width: 2rem;
+  height: 2rem;
+}
+
+.status-card.warning {
+  background: rgba(245, 158, 11, 0.1);
+  border-color: rgba(245, 158, 11, 0.3);
+}
+
+.status-card.warning .status-icon {
+  background: rgba(245, 158, 11, 0.2);
+  color: rgb(245, 158, 11);
+  font-size: 1.5rem;
+  width: 2rem;
+  height: 2rem;
+}
+
+/* Channel status icon size control */
+.channel-status-large svg,
+.channel-status-large .status-icon {
+  width: 3rem !important;
+  height: 3rem !important;
+  font-size: 2rem !important;
+}
+
+#channelStatusIcon svg {
+  width: 3rem !important;
+  height: 3rem !important;
+}
+
+/* Channel item styling with green theme */
+.channel-item {
+  border-width: 1px;
+}
+
+.channel-item:hover {
+  @apply border-primary/50 bg-slate-700/30;
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.1);
+}
+
+.channel-item.live {
+  @apply border-l-4;
+  border-left-color: var(--primary);
+}
+
+.channel-item.dead {
+  @apply border-l-4 border-l-red-500;
+}
+
+/* Category badge with green theme */
+.category-badge {
+  @apply px-4 py-2 border border-slate-600 rounded-lg text-sm font-medium transition-all duration-300 cursor-pointer;
+  background: rgba(51, 65, 85, 0.5);
+  color: rgb(156, 163, 175);
+}
+
+.category-badge:hover {
+  background: rgba(34, 197, 94, 0.1);
+  color: var(--primary);
+  border-color: rgba(34, 197, 94, 0.3);
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Hidden utility */
+.hidden {
+  display: none !important;
+}
+
+/* Checkmark animation */
+@keyframes checkmark {
+  0% {
+    stroke-dashoffset: 100;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.checkmark-check {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: checkmark 0.6s ease-out 0.3s forwards;
+}
+
+/* Responsive adjustments with enhanced mobile experience */
+@media (max-width: 640px) {
+  .hero h1 {
+    font-size: 2.5rem;
+    line-height: 1.1;
+  }
+  
+  .feature-card .corner-badge {
+    font-size: 3rem;
+  }
+  
+  .mode-selector {
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+  
+  .mode-btn {
+    padding: 1.5rem 1rem;
+    min-height: 120px;
+  }
+  
+  .action-btn {
+    font-size: 1rem;
+    padding: 1rem 1.5rem;
+    min-height: 56px;
+  }
+  
+  .converter-card {
+    margin: 0 1rem;
+  }
+}
+
+/* Enhanced mobile touch targets */
+@media (max-width: 480px) {
+  .filter-btn {
+    min-height: 44px;
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .summary-card {
+    padding: 1rem;
+  }
+  
+  .feature-card {
+    padding: 1.5rem;
+  }
+}
+
+/* Additional enhancements */
+.summary-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--primary);
+  box-shadow: 0 10px 30px rgba(34, 197, 94, 0.15);
+}
+
+.feature-card {
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.feature-card:hover::before {
+  opacity: 1;
+}
+
+.feature-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 25px 50px rgba(34, 197, 94, 0.15);
+}
+
+/* Progress bar styling */
+.progress-fill-animated {
+  background: linear-gradient(90deg, var(--primary), var(--accent), var(--secondary));
+  background-size: 200% 100%;
+  animation: gradient-shift 2s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Live percentage bars */
+.live-bar {
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+}
+
+.dead-bar {
+  background: linear-gradient(90deg, #ef4444, #dc2626);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary);
+}
+
+}
+
+
+@layer components {
+
+/* Custom Tailwind Extensions and Animations - Green Gym Theme */
+/* Google Fonts loaded in HTML head for better performance */
+
+:root {
+  --primary: #22c55e;
+  --secondary: #16a34a;
+  --accent: #84cc16;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+/* Enhanced animations */
+@keyframes float {
+  0%, 100% { 
+    transform: translateY(0px) rotate(0deg); 
+    opacity: 0.7;
+  }
+  50% { 
+    transform: translateY(-25px) rotate(5deg);
+    opacity: 1;
+  }
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+.animate-gradient {
+  animation: gradient 5s ease infinite;
+}
+
+.bg-300% {
+  background-size: 300% 300%;
+}
+
+
+.animate-float {
+  animation: float 12s ease-in-out infinite;
+}
+.animate-float-delay-1 {
+  animation: float 14s ease-in-out infinite;
+  animation-delay: -2s;
+}
+.animate-float-delay-2 {
+  animation: float 16s ease-in-out infinite;
+  animation-delay: -5s;
+}
+
+/* Custom scrollbar for a modern look */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0f172a; /* slate-800 */
+}
+::-webkit-scrollbar-thumb {
+  background: #1e293b; /* slate-700 */
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #334155; /* slate-600 */
+}
+
+/* Active state for filter buttons */
+.filter-btn.active {
+  background-color: var(--primary);
+  color: black;
+  font-weight: bold;
+}
+.filter-btn {
+  background-color: #1e293b; /* slate-700 */
+  color: white;
+}
+
+/* Custom styles for mode buttons */
+.mode-btn.active {
+  border-color: var(--primary);
+  background-color: rgba(34, 197, 94, 0.1);
+  box-shadow: 0 0 15px rgba(34, 197, 94, 0.3);
+}
+
+/* Custom styles for category tags */
+.category-tag.active {
+  background-color: var(--primary);
+  color: black;
+  font-weight: bold;
+  border-color: var(--primary);
+}
+.category-tag {
+  background-color: #1e293b; /* slate-700 */
+  color: white;
+  border: 1px solid #334155; /* slate-600 */
+}
+
+/* Checkmark animation for success states */
+.checkmark-circle {
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  stroke-width: 2;
+  stroke-miterlimit: 10;
+  stroke: #22c55e;
+  fill: none;
+  animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+
+.checkmark-check {
+  transform-origin: 50% 50%;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+}
+
+@keyframes stroke {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Pulse animation for live badge */
+.pulse {
+  animation: pulse-grow 2s infinite;
+}
+
+@keyframes pulse-grow {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 0.7;
+  }
+}
+
+/* Fade-in animation for elements */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out forwards;
+}
+
+/* Staggered fade-in for lists */
+.stagger-fade-in > * {
+  opacity: 0;
+  animation: fade-in 0.5s ease-out forwards;
+}
+
+/* Apply animation delays to children */
+.stagger-fade-in > *:nth-child(1) { animation-delay: 0.05s; }
+.stagger-fade-in > *:nth-child(2) { animation-delay: 0.1s; }
+.stagger-fade-in > *:nth-child(3) { animation-delay: 0.15s; }
+.stagger-fade-in > *:nth-child(4) { animation-delay: 0.2s; }
+.stagger-fade-in > *:nth-child(5) { animation-delay: 0.25s; }
+.stagger-fade-in > *:nth-child(6) { animation-delay: 0.3s; }
+.stagger-fade-in > *:nth-child(7) { animation-delay: 0.35s; }
+.stagger-fade-in > *:nth-child(8) { animation-delay: 0.4s; }
+.stagger-fade-in > *:nth-child(9) { animation-delay: 0.45s; }
+.stagger-fade-in > *:nth-child(10) { animation-delay: 0.5s; }
+.stagger-fade-in > *:nth-child(11) { animation-delay: 0.55s; }
+.stagger-fade-in > *:nth-child(12) { animation-delay: 0.6s; }
+.stagger-fade-in > *:nth-child(13) { animation-delay: 0.65s; }
+.stagger-fade-in > *:nth-child(14) { animation-delay: 0.7s; }
+.stagger-fade-in > *:nth-child(15) { animation-delay: 0.75s; }
+.stagger-fade-in > *:nth-child(16) { animation-delay: 0.8s; }
+.stagger-fade-in > *:nth-child(17) { animation-delay: 0.85s; }
+.stagger-fade-in > *:nth-child(18) { animation-delay: 0.9s; }
+.stagger-fade-in > *:nth-child(19) { animation-delay: 0.95s; }
+.stagger-fade-in > *:nth-child(20) { animation-delay: 1.0s; }
+
+/* Custom line-clamp utility */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
+}
+
+/* Custom truncate with gradient fade */
+.truncate-fade {
+  position: relative;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.truncate-fade::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 30%;
+  height: 100%;
+  background: linear-gradient(to left, #0f172a, transparent); /* slate-800 */
+}
+
+/* Custom card glow effect */
+.card-glow {
+  transition: opacity 0.3s, transform 0.3s;
+}
+.converter-card:hover .card-glow {
+  opacity: 0.5;
+  transform: scale(1.05);
+}
+
+/* Custom button styles */
+.action-btn, .secondary-btn, .download-btn {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Custom spinner for loading button */
+.spinner {
+  border-style: solid;
+}
+
+/* Custom dot styles for legend */
+.dot {
+  display: inline-block;
+}
+
+/* Custom styles for channel list items */
+.channel-item {
+  transition: background-color 0.2s, border-color 0.2s;
+}
+.channel-item:hover {
+  background-color: #1e293b; /* slate-700 */
+  border-color: #334155; /* slate-600 */
+}
+
+/* Custom styles for summary cards */
+.summary-card {
+  transition: transform 0.3s, border-color 0.3s;
+}
+.summary-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Custom styles for feature cards */
+.feature-card {
+  transition: transform 0.3s, border-color 0.3s;
+}
+.feature-card:hover {
+  transform: translateY(-8px);
+}
+
+/* Custom styles for blog cards */
+.blog-card {
+  transition: transform 0.3s, border-color 0.3s;
+}
+.blog-card:hover {
+  transform: translateY(-4px);
+}
+
+/* Custom styles for format tags */
+.format-tag {
+  transition: border-color 0.3s, color 0.3s;
+}
+.format-tag:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+/* Custom styles for header badge */
+.header-badge {
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+.header-badge:hover {
+  background-color: rgba(34, 197, 94, 0.2);
+  box-shadow: 0 0 15px rgba(34, 197, 94, 0.4);
+}
+
+/* Custom styles for hero badge */
+.hero-badge {
+  transition: transform 0.3s;
+}
+.hero-badge:hover {
+  transform: scale(1.05);
+}
+
+/* Custom styles for clear button */
+.clear-btn {
+  transition: color 0.2s, transform 0.2s;
+}
+.clear-btn:hover {
+  color: white;
+  transform: scale(1.1);
+}
+
+/* Custom styles for footer links */
+.footer-links a {
+  transition: color 0.2s;
+}
+.footer-links a:hover {
+  color: var(--primary);
+}
+
+/* Custom styles for breadcrumb links */
+nav[aria-label="Breadcrumb"] a {
+  transition: color 0.2s;
+}
+nav[aria-label="Breadcrumb"] a:hover {
+  color: var(--primary);
+}
+
+/* Custom styles for article links */
+article a {
+  transition: color 0.2s;
+}
+article a:hover {
+  color: var(--primary);
+}
+
+/* Custom styles for table of contents links */
+#iptv-guide a {
+  transition: color 0.2s;
+}
+#iptv-guide a:hover {
+  color: white;
+}
+
+/* Custom styles for main CTA */
+.main-cta {
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.main-cta:hover {
+  transform: scale(1.03);
+  box-shadow: 0 10px 20px rgba(34, 197, 94, 0.3);
+}
+
+}
+
