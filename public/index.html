@@ -149,6 +149,48 @@
     }
   }
   </script>
+
+  <!-- FAQ Schema -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is an M3U playlist?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "An M3U (Multimedia Playlist) file is a plain text file that specifies the locations of media files. In the context of IPTV, it contains URLs linking to live TV channels, movies, and series, allowing media players to stream the content."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why is my IPTV buffering?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Buffering can be caused by a slow internet connection, server overload on the provider's end, or ISP throttling. Testing your playlist with StreamNinja can help you determine if the issue is with the stream itself or your connection."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is StreamNinja free?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, StreamNinja is completely free to use. You can analyze M3U playlists, check individual stream health, and export reports to PDF without any cost."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does StreamNinja store my playlist?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Absolutely not. We prioritize your privacy. All playlist data is processed securely and we adhere to a strict zero-storage policy, meaning we never save, duplicate, or hijack your links."
+      }
+    }
+  ]
+}
+  </script>
 </head>
 <body class="bg-gradient-to-br from-darker via-dark to-navy min-h-screen text-gray-100 relative overflow-x-hidden">
   
@@ -799,6 +841,29 @@
       
 
         
+          <!-- FAQ Section -->
+      <section class="max-w-4xl mx-auto mt-24 mb-12 bg-slate-800/30 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-8 md:p-12">
+        <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-8 text-center">Frequently Asked Questions</h2>
+        <div class="space-y-6">
+          
+          <div class="bg-slate-900/50 border border-slate-700/50 p-6 rounded-xl hover:border-primary/50 transition-all duration-300">
+            <h3 class="text-xl font-bold text-white mb-3">What is an M3U playlist?</h3>
+            <p class="text-gray-300 leading-relaxed">An M3U (Multimedia Playlist) file is a plain text file that specifies the locations of media files. In the context of IPTV, it contains URLs linking to live TV channels, movies, and series, allowing media players to stream the content.</p>
+          </div>
+          <div class="bg-slate-900/50 border border-slate-700/50 p-6 rounded-xl hover:border-primary/50 transition-all duration-300">
+            <h3 class="text-xl font-bold text-white mb-3">Why is my IPTV buffering?</h3>
+            <p class="text-gray-300 leading-relaxed">Buffering can be caused by a slow internet connection, server overload on the provider's end, or ISP throttling. Testing your playlist with StreamNinja can help you determine if the issue is with the stream itself or your connection.</p>
+          </div>
+          <div class="bg-slate-900/50 border border-slate-700/50 p-6 rounded-xl hover:border-primary/50 transition-all duration-300">
+            <h3 class="text-xl font-bold text-white mb-3">Is StreamNinja free?</h3>
+            <p class="text-gray-300 leading-relaxed">Yes, StreamNinja is completely free to use. You can analyze M3U playlists, check individual stream health, and export reports to PDF without any cost.</p>
+          </div>
+          <div class="bg-slate-900/50 border border-slate-700/50 p-6 rounded-xl hover:border-primary/50 transition-all duration-300">
+            <h3 class="text-xl font-bold text-white mb-3">Does StreamNinja store my playlist?</h3>
+            <p class="text-gray-300 leading-relaxed">Absolutely not. We prioritize your privacy. All playlist data is processed securely and we adhere to a strict zero-storage policy, meaning we never save, duplicate, or hijack your links.</p>
+          </div>
+        </div>
+      </section>
     </main>
 
     <!-- Footer -->
