@@ -476,6 +476,20 @@ async function batchCheckChannels(channels, maxConcurrent = 5, timeout = 8000) {
 }
 
 /**
+ * Detect if URL is an Xtream Codes API URL
+ */
+function isXtreamUrl(url) {
+  if (!url || typeof url !== 'string') return false;
+  const lower = url.toLowerCase();
+  return lower.includes('get.php') || 
+         lower.includes('/live/') || 
+         lower.includes('/movie/') || 
+         lower.includes('/series/') ||
+         lower.includes('player_api.php') ||
+         lower.includes('xmltv.php');
+}
+
+/**
  * Validate playlist content
  */
 function isValidPlaylistContent(content) {
@@ -691,17 +705,28 @@ app.get('/api/analyze-stream', analysisLimiter, async (req, res) => {
   res.setHeader('Content-Type', 'text/event-stream');
   res.setHeader('Cache-Control', 'no-cache');
   res.setHeader('Connection', 'keep-alive');
-  res.setHeader('x-no-compression', 'true'); // Required so compression doesn't buffer chunks
+  res.setHeader('x-no-compression', 'true');
   res.flushHeaders();
 
   const sendEvent = (type, data) => {
     res.write(`event: ${type}\ndata: ${JSON.stringify(data)}\n\n`);
   };
 
+  // Keepalive ping every 25s to prevent timeout drops
+  const keepaliveTimer = setInterval(() => {
+    res.write(`: keepalive\n\n`);
+  }, 25000);
+
+  // Cleanup keepalive on close
+  req.on('close', () => {
+    clearInterval(keepaliveTimer);
+  });
+
   try {
     const validation = validateUrl(req.query.url);
     if (!validation.valid) {
       sendEvent('error', { error: validation.error });
+      clearInterval(keepaliveTimer);
       return res.end();
     }
     
@@ -720,18 +745,21 @@ app.get('/api/analyze-stream', analysisLimiter, async (req, res) => {
       response = await secureFetch(url);
     } catch (fetchErr) {
       sendEvent('error', { error: 'Could not fetch playlist: ' + fetchErr.message });
+      clearInterval(keepaliveTimer);
       return res.end();
     }
     
     const content = response.data;
     if (!isValidPlaylistContent(content)) {
       sendEvent('error', { error: 'Invalid playlist content' });
+      clearInterval(keepaliveTimer);
       return res.end();
     }
 
     const channels = parsePlaylist(content);
     if (channels.length === 0) {
       sendEvent('error', { error: 'No channels found in playlist' });
+      clearInterval(keepaliveTimer);
       return res.end();
     }
 
@@ -898,6 +926,69 @@ app.post('/api/check-channel', async (req, res) => {
   } catch (error) {
     console.error('Channel check error:', error.message);
     res.status(500).json({ error: 'Channel check failed' });
+  }
+});
+
+// ============================================
+// Contact Form API
+// ============================================
+
+/**
+ * Save contact message
+ */
+app.post('/api/contact', apiLimiter, async (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  
+  try {
+    const { name, email, subject, message } = req.body;
+    
+    // Validate all fields
+    if (!name || typeof name !== 'string' || name.trim().length < 1 || name.length > 100) {
+      return res.status(400).json({ error: 'Name is required (max 100 chars)' });
+    }
+    if (!email || typeof email !== 'string' || !validator.isEmail(email)) {
+      return res.status(400).json({ error: 'Valid email is required' });
+    }
+    if (!subject || typeof subject !== 'string' || !['bug', 'feature', 'business', 'other'].includes(subject)) {
+      return res.status(400).json({ error: 'Invalid subject' });
+    }
+    if (!message || typeof message !== 'string' || message.trim().length < 1 || message.length > 5000) {
+      return res.status(400).json({ error: 'Message is required (max 5000 chars)' });
+    }
+    
+    const contactMessage = {
+      id: Date.now().toString(36) + Math.random().toString(36).substr(2, 4),
+      name: name.trim(),
+      email: email.trim(),
+      subject,
+      message: message.trim(),
+      timestamp: new Date().toISOString(),
+      ip: req.ip || req.connection.remoteAddress
+    };
+    
+    // Append to messages file
+    const fs = require('fs');
+    const messagesPath = path.join(__dirname, 'contact-messages.json');
+    let messages = [];
+    try {
+      if (fs.existsSync(messagesPath)) {
+        const data = fs.readFileSync(messagesPath, 'utf8');
+        messages = JSON.parse(data);
+      }
+    } catch (e) {
+      // Start fresh if file is corrupted
+      messages = [];
+    }
+    messages.push(contactMessage);
+    fs.writeFileSync(messagesPath, JSON.stringify(messages, null, 2));
+    
+    console.log(`📧 Contact message from ${contactMessage.name} <${contactMessage.email}>`);
+    
+    res.json({ success: true, message: 'Message sent successfully!' });
+    
+  } catch (error) {
+    console.error('Contact error:', error);
+    res.status(500).json({ error: 'Failed to save message. Please try again.' });
   }
 });
 

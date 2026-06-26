@@ -441,6 +441,17 @@ function updateModeUI() {
 // Input Handling
 // ============================================
 
+function isXtreamUrl(url) {
+  if (!url || typeof url !== 'string') return false;
+  const lower = url.toLowerCase();
+  return lower.includes('get.php') || 
+         lower.includes('/live/') || 
+         lower.includes('/movie/') || 
+         lower.includes('/series/') ||
+         lower.includes('player_api.php') ||
+         lower.includes('xmltv.php');
+}
+
 function handleInputChange() {
   const value = urlInput.value.trim();
   clearBtn.classList.toggle('hidden', !value);
@@ -451,7 +462,12 @@ function handleInputChange() {
     httpWarning.classList.add('hidden');
   }
   
-  if (statusCard?.classList.contains('error')) {
+  // Detect Xtream Codes URL
+  if (isXtreamUrl(value)) {
+    if (currentMode === 'analyze') {
+      showStatus('Xtream URL Detected', 'Xtream Codes URLs may return JSON/XML instead of M3U. Try using "Check Channel" mode for individual stream URLs.', 'warning');
+    }
+  } else if (statusCard?.classList.contains('error') || statusCard?.classList.contains('warning')) {
     hideStatus();
   }
 }

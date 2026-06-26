@@ -4,9 +4,6 @@
 
 @layer components {
 
-/* Custom Tailwind Extensions and Animations - Green Gym Theme */
-/* Google Fonts loaded in HTML head for better performance */
-
 :root {
   --primary: #22c55e;
   --secondary: #16a34a;
@@ -29,20 +26,71 @@ body {
   }
 }
 
+@keyframes float-alt {
+  0%, 100% { 
+    transform: translateY(0px) rotate(0deg); 
+    opacity: 0.7;
+  }
+  50% { 
+    transform: translateY(-25px) rotate(5deg);
+    opacity: 1;
+  }
+}
+
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
 /* Fade-in animation */
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes stroke {
+  100% { stroke-dashoffset: 0; }
+}
+
+@keyframes pulse-grow {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.5); opacity: 0.7; }
+}
+
+@keyframes checkmark {
+  0% { stroke-dashoffset: 100; }
+  100% { stroke-dashoffset: 0; }
 }
 
 .animate-fade-in {
   animation: fadeIn 0.6s ease-out;
+}
+
+.animate-gradient {
+  animation: gradient 5s ease infinite;
+}
+
+.animate-float {
+  animation: float-alt 12s ease-in-out infinite;
+}
+.animate-float-delay-1 {
+  animation: float-alt 14s ease-in-out infinite;
+  animation-delay: -2s;
+}
+.animate-float-delay-2 {
+  animation: float-alt 16s ease-in-out infinite;
+  animation-delay: -5s;
 }
 
 /* Gradient background animation */
@@ -54,6 +102,12 @@ body {
 .card-glow {
   filter: blur(20px);
   opacity: 0.4;
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.converter-card:hover .card-glow {
+  opacity: 0.5;
+  transform: scale(1.05);
 }
 
 /* Mode selector enhancements */
@@ -68,14 +122,13 @@ body {
   box-shadow: 0 20px 40px rgba(34, 197, 94, 0.15);
 }
 
-/* Active mode button with green theme */
 .mode-btn.active {
   border-color: var(--primary);
   background: linear-gradient(to bottom right, rgba(34, 197, 94, 0.1), rgba(132, 204, 22, 0.1));
   box-shadow: 0 0 20px rgba(34, 197, 94, 0.2);
 }
 
-/* Filter button active state with green theme */
+/* Filter button active state */
 .filter-btn.active {
   background: linear-gradient(to right, var(--primary), var(--secondary));
   color: #000;
@@ -127,7 +180,7 @@ body {
   display: flex !important;
 }
 
-/* Status card variants with green theme */
+/* Status card variants */
 .status-card.success {
   background: rgba(34, 197, 94, 0.1);
   border-color: rgba(34, 197, 94, 0.3);
@@ -180,9 +233,10 @@ body {
   height: 3rem !important;
 }
 
-/* Channel item styling with green theme */
+/* Channel item styling */
 .channel-item {
   border-width: 1px;
+  transition: background-color 0.2s, border-color 0.2s;
 }
 
 .channel-item:hover {
@@ -199,7 +253,7 @@ body {
   @apply border-l-4 border-l-red-500;
 }
 
-/* Category badge with green theme */
+/* Category badge */
 .category-badge {
   @apply px-4 py-2 border border-slate-600 rounded-lg text-sm font-medium transition-all duration-300 cursor-pointer;
   background: rgba(51, 65, 85, 0.5);
@@ -210,6 +264,19 @@ body {
   background: rgba(34, 197, 94, 0.1);
   color: var(--primary);
   border-color: rgba(34, 197, 94, 0.3);
+}
+
+/* Category tags */
+.category-tag.active {
+  background-color: var(--primary);
+  color: black;
+  font-weight: bold;
+  border-color: var(--primary);
+}
+.category-tag {
+  background-color: #1e293b;
+  color: white;
+  border: 1px solid #334155;
 }
 
 /* Smooth scrolling */
@@ -223,101 +290,25 @@ html {
 }
 
 /* Checkmark animation */
-@keyframes checkmark {
-  0% {
-    stroke-dashoffset: 100;
-  }
-  100% {
-    stroke-dashoffset: 0;
-  }
-}
-
 .checkmark-check {
   stroke-dasharray: 100;
   stroke-dashoffset: 100;
   animation: checkmark 0.6s ease-out 0.3s forwards;
 }
 
-/* Responsive adjustments with enhanced mobile experience */
-@media (max-width: 640px) {
-  .hero h1 {
-    font-size: 2.5rem;
-    line-height: 1.1;
-  }
-  
-  .feature-card .corner-badge {
-    font-size: 3rem;
-  }
-  
-  .mode-selector {
-    gap: 1rem;
-    padding: 0 1rem;
-  }
-  
-  .mode-btn {
-    padding: 1.5rem 1rem;
-    min-height: 120px;
-  }
-  
-  .action-btn {
-    font-size: 1rem;
-    padding: 1rem 1.5rem;
-    min-height: 56px;
-  }
-  
-  .converter-card {
-    margin: 0 1rem;
-  }
+.checkmark-circle {
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  stroke-width: 2;
+  stroke-miterlimit: 10;
+  stroke: #22c55e;
+  fill: none;
+  animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
 }
 
-/* Enhanced mobile touch targets */
-@media (max-width: 480px) {
-  .filter-btn {
-    min-height: 44px;
-    padding: 0.75rem 1rem;
-    font-size: 0.9rem;
-  }
-  
-  .summary-card {
-    padding: 1rem;
-  }
-  
-  .feature-card {
-    padding: 1.5rem;
-  }
-}
-
-/* Additional enhancements */
-.summary-card:hover {
-  transform: translateY(-5px);
-  border-color: var(--primary);
-  box-shadow: 0 10px 30px rgba(34, 197, 94, 0.15);
-}
-
-.feature-card {
-  transition: all 0.3s ease;
-  position: relative;
-}
-
-.feature-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--primary), var(--accent));
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.feature-card:hover::before {
-  opacity: 1;
-}
-
-.feature-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 25px 50px rgba(34, 197, 94, 0.15);
+/* Pulse animation */
+.pulse {
+  animation: pulse-grow 2s infinite;
 }
 
 /* Progress bar styling */
@@ -325,11 +316,6 @@ html {
   background: linear-gradient(90deg, var(--primary), var(--accent), var(--secondary));
   background-size: 200% 100%;
   animation: gradient-shift 2s ease infinite;
-}
-
-@keyframes gradient-shift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
 }
 
 /* Live percentage bars */
@@ -345,183 +331,15 @@ html {
 ::-webkit-scrollbar {
   width: 8px;
 }
-
 ::-webkit-scrollbar-track {
-  background: rgba(15, 23, 42, 0.5);
+  background: #0f172a;
 }
-
 ::-webkit-scrollbar-thumb {
   background: var(--primary);
   border-radius: 4px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
   background: var(--secondary);
-}
-
-}
-
-
-@layer components {
-
-/* Custom Tailwind Extensions and Animations - Green Gym Theme */
-/* Google Fonts loaded in HTML head for better performance */
-
-:root {
-  --primary: #22c55e;
-  --secondary: #16a34a;
-  --accent: #84cc16;
-}
-
-body {
-  font-family: 'Inter', sans-serif;
-}
-
-/* Enhanced animations */
-@keyframes float {
-  0%, 100% { 
-    transform: translateY(0px) rotate(0deg); 
-    opacity: 0.7;
-  }
-  50% { 
-    transform: translateY(-25px) rotate(5deg);
-    opacity: 1;
-  }
-}
-
-@keyframes gradient {
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
-}
-
-.animate-gradient {
-  animation: gradient 5s ease infinite;
-}
-
-.bg-300% {
-  background-size: 300% 300%;
-}
-
-
-.animate-float {
-  animation: float 12s ease-in-out infinite;
-}
-.animate-float-delay-1 {
-  animation: float 14s ease-in-out infinite;
-  animation-delay: -2s;
-}
-.animate-float-delay-2 {
-  animation: float 16s ease-in-out infinite;
-  animation-delay: -5s;
-}
-
-/* Custom scrollbar for a modern look */
-::-webkit-scrollbar {
-  width: 8px;
-}
-::-webkit-scrollbar-track {
-  background: #0f172a; /* slate-800 */
-}
-::-webkit-scrollbar-thumb {
-  background: #1e293b; /* slate-700 */
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #334155; /* slate-600 */
-}
-
-/* Active state for filter buttons */
-.filter-btn.active {
-  background-color: var(--primary);
-  color: black;
-  font-weight: bold;
-}
-.filter-btn {
-  background-color: #1e293b; /* slate-700 */
-  color: white;
-}
-
-/* Custom styles for mode buttons */
-.mode-btn.active {
-  border-color: var(--primary);
-  background-color: rgba(34, 197, 94, 0.1);
-  box-shadow: 0 0 15px rgba(34, 197, 94, 0.3);
-}
-
-/* Custom styles for category tags */
-.category-tag.active {
-  background-color: var(--primary);
-  color: black;
-  font-weight: bold;
-  border-color: var(--primary);
-}
-.category-tag {
-  background-color: #1e293b; /* slate-700 */
-  color: white;
-  border: 1px solid #334155; /* slate-600 */
-}
-
-/* Checkmark animation for success states */
-.checkmark-circle {
-  stroke-dasharray: 166;
-  stroke-dashoffset: 166;
-  stroke-width: 2;
-  stroke-miterlimit: 10;
-  stroke: #22c55e;
-  fill: none;
-  animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
-}
-
-.checkmark-check {
-  transform-origin: 50% 50%;
-  stroke-dasharray: 48;
-  stroke-dashoffset: 48;
-  animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
-}
-
-@keyframes stroke {
-  100% {
-    stroke-dashoffset: 0;
-  }
-}
-
-/* Pulse animation for live badge */
-.pulse {
-  animation: pulse-grow 2s infinite;
-}
-
-@keyframes pulse-grow {
-  0%, 100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: scale(1.5);
-    opacity: 0.7;
-  }
-}
-
-/* Fade-in animation for elements */
-@keyframes fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-fade-in {
-  animation: fade-in 0.5s ease-out forwards;
 }
 
 /* Staggered fade-in for lists */
@@ -529,8 +347,6 @@ body {
   opacity: 0;
   animation: fade-in 0.5s ease-out forwards;
 }
-
-/* Apply animation delays to children */
 .stagger-fade-in > *:nth-child(1) { animation-delay: 0.05s; }
 .stagger-fade-in > *:nth-child(2) { animation-delay: 0.1s; }
 .stagger-fade-in > *:nth-child(3) { animation-delay: 0.15s; }
@@ -552,7 +368,7 @@ body {
 .stagger-fade-in > *:nth-child(19) { animation-delay: 0.95s; }
 .stagger-fade-in > *:nth-child(20) { animation-delay: 1.0s; }
 
-/* Custom line-clamp utility */
+/* Custom line-clamp */
 .line-clamp-2 {
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -560,7 +376,7 @@ body {
   overflow: hidden;
 }
 
-/* Custom truncate with gradient fade */
+/* Truncate with gradient fade */
 .truncate-fade {
   position: relative;
   white-space: nowrap;
@@ -573,59 +389,98 @@ body {
   right: 0;
   width: 30%;
   height: 100%;
-  background: linear-gradient(to left, #0f172a, transparent); /* slate-800 */
+  background: linear-gradient(to left, #0f172a, transparent);
 }
 
-/* Custom card glow effect */
-.card-glow {
-  transition: opacity 0.3s, transform 0.3s;
-}
-.converter-card:hover .card-glow {
-  opacity: 0.5;
-  transform: scale(1.05);
-}
-
-/* Custom button styles */
+/* Button styles */
 .action-btn, .secondary-btn, .download-btn {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Custom spinner for loading button */
+/* Spinner */
 .spinner {
   border-style: solid;
 }
 
-/* Custom dot styles for legend */
+/* Dot legend */
 .dot {
   display: inline-block;
 }
 
-/* Custom styles for channel list items */
-.channel-item {
-  transition: background-color 0.2s, border-color 0.2s;
-}
-.channel-item:hover {
-  background-color: #1e293b; /* slate-700 */
-  border-color: #334155; /* slate-600 */
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .hero h1 {
+    font-size: 2.5rem;
+    line-height: 1.1;
+  }
+  .feature-card .corner-badge {
+    font-size: 3rem;
+  }
+  .mode-selector {
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+  .mode-btn {
+    padding: 1.5rem 1rem;
+    min-height: 120px;
+  }
+  .action-btn {
+    font-size: 1rem;
+    padding: 1rem 1.5rem;
+    min-height: 56px;
+  }
+  .converter-card {
+    margin: 0 1rem;
+  }
 }
 
-/* Custom styles for summary cards */
+@media (max-width: 480px) {
+  .filter-btn {
+    min-height: 44px;
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+  }
+  .summary-card {
+    padding: 1rem;
+  }
+  .feature-card {
+    padding: 1.5rem;
+  }
+}
+
+/* Summary card hover */
 .summary-card {
   transition: transform 0.3s, border-color 0.3s;
 }
 .summary-card:hover {
   transform: translateY(-5px);
+  border-color: var(--primary);
+  box-shadow: 0 10px 30px rgba(34, 197, 94, 0.15);
 }
 
-/* Custom styles for feature cards */
+/* Feature card styles */
 .feature-card {
-  transition: transform 0.3s, border-color 0.3s;
+  transition: all 0.3s ease;
+  position: relative;
 }
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.feature-card:hover::before { opacity: 1; }
 .feature-card:hover {
   transform: translateY(-8px);
+  box-shadow: 0 25px 50px rgba(34, 197, 94, 0.15);
 }
 
-/* Custom styles for blog cards */
+/* Blog card */
 .blog-card {
   transition: transform 0.3s, border-color 0.3s;
 }
@@ -633,7 +488,7 @@ body {
   transform: translateY(-4px);
 }
 
-/* Custom styles for format tags */
+/* Format tags */
 .format-tag {
   transition: border-color 0.3s, color 0.3s;
 }
@@ -642,7 +497,7 @@ body {
   color: var(--primary);
 }
 
-/* Custom styles for header badge */
+/* Header badge */
 .header-badge {
   transition: background-color 0.3s, box-shadow 0.3s;
 }
@@ -651,7 +506,7 @@ body {
   box-shadow: 0 0 15px rgba(34, 197, 94, 0.4);
 }
 
-/* Custom styles for hero badge */
+/* Hero badge */
 .hero-badge {
   transition: transform 0.3s;
 }
@@ -659,7 +514,7 @@ body {
   transform: scale(1.05);
 }
 
-/* Custom styles for clear button */
+/* Clear button */
 .clear-btn {
   transition: color 0.2s, transform 0.2s;
 }
@@ -668,7 +523,7 @@ body {
   transform: scale(1.1);
 }
 
-/* Custom styles for footer links */
+/* Footer links */
 .footer-links a {
   transition: color 0.2s;
 }
@@ -676,7 +531,7 @@ body {
   color: var(--primary);
 }
 
-/* Custom styles for breadcrumb links */
+/* Breadcrumb links */
 nav[aria-label="Breadcrumb"] a {
   transition: color 0.2s;
 }
@@ -684,7 +539,7 @@ nav[aria-label="Breadcrumb"] a:hover {
   color: var(--primary);
 }
 
-/* Custom styles for article links */
+/* Article links */
 article a {
   transition: color 0.2s;
 }
@@ -692,7 +547,7 @@ article a:hover {
   color: var(--primary);
 }
 
-/* Custom styles for table of contents links */
+/* IPTV guide links */
 #iptv-guide a {
   transition: color 0.2s;
 }
@@ -700,7 +555,7 @@ article a:hover {
   color: white;
 }
 
-/* Custom styles for main CTA */
+/* Main CTA */
 .main-cta {
   transition: transform 0.3s, box-shadow 0.3s;
 }
@@ -710,4 +565,3 @@ article a:hover {
 }
 
 }
-

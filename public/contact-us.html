@@ -3,13 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Contact Us - Free IPTV Analyzer | StreamNinja</title>
-  <meta name="description" content="Contact the StreamNinja team.">
+  <title>Contact StreamNinja - Free IPTV Analyzer Support & Feedback</title>
+  <meta name="description" content="Contact the StreamNinja team for bug reports, feature requests, or business inquiries about our free IPTV playlist analyzer and M3U stream testing tool.">
+  <meta name="keywords" content="contact streamninja, iptv analyzer support, m3u tool feedback, report iptv bug, streamninja help">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="manifest" href="/manifest.json">
+  <link rel="canonical" href="https://streamninja.app/contact-us.html">
+  <meta name="google-adsense-account" content="ca-pub-2041522863254731">
   
   <!-- Add Tailwind -->
   <link rel="stylesheet" href="tailwind-built.css?v=4">
+  <!-- BreadcrumbList Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://streamninja.app/" },
+      { "@type": "ListItem", "position": 2, "name": "Contact Us", "item": "https://streamninja.app/contact-us.html" }
+    ]
+  }
+  </script>
   </head>
 <body class="bg-gradient-to-br from-darker via-dark to-navy min-h-screen text-gray-100 relative overflow-x-hidden">
   <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -77,7 +91,14 @@
                 <label for="message" class="block text-sm font-bold text-gray-300 mb-2 uppercase tracking-wide">Message</label>
                 <textarea id="message" rows="5" class="w-full bg-slate-800/80 border border-slate-600/50 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all shadow-inner resize-y" placeholder="Describe your issue or feedback in detail..." required></textarea>
             </div>
-            <button type="button" onclick="alert('Message Sent Successfully! We will get back to you shortly.')" class="w-full bg-gradient-to-r from-primary to-secondary text-black font-extrabold text-lg flex justify-center py-4 px-4 rounded-xl shadow-[0_0_20px_rgba(var(--color-primary),0.3)] hover:shadow-[0_0_30px_rgba(var(--color-primary),0.5)] transition-all duration-300 transform hover:-translate-y-1">
+            <div id="contactStatus" class="hidden flex items-start gap-3 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-sm backdrop-blur-sm">
+                <svg class="w-5 h-5 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                    <polyline points="22 4 12 14.01 9 11.01"/>
+                </svg>
+                <span id="contactStatusText">Message Sent Successfully! We will get back to you shortly.</span>
+            </div>
+            <button type="button" onclick="handleContactForm()" class="w-full bg-gradient-to-r from-primary to-secondary text-black font-extrabold text-lg flex justify-center py-4 px-4 rounded-xl shadow-[0_0_20px_rgba(var(--color-primary),0.3)] hover:shadow-[0_0_30px_rgba(var(--color-primary),0.5)] transition-all duration-300 transform hover:-translate-y-1">
                 Send Message &rarr;
             </button>
         </form>
@@ -118,6 +139,67 @@
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('/sw.js').catch(() => {});
       });
+    }
+
+    function handleContactForm() {
+      var name = document.getElementById('name');
+      var email = document.getElementById('email');
+      var subject = document.getElementById('subject');
+      var message = document.getElementById('message');
+      var statusDiv = document.getElementById('contactStatus');
+      var statusText = document.getElementById('contactStatusText');
+
+      // Validate required fields
+      if (!name.value.trim() || !email.value.trim() || !message.value.trim()) {
+        statusDiv.className = 'flex items-start gap-3 p-4 rounded-xl bg-red-500/10 border border-red-500/30 text-red-300 text-sm backdrop-blur-sm';
+        statusText.textContent = 'Please fill in all required fields.';
+        statusDiv.classList.remove('hidden');
+        return;
+      }
+
+      // Send to server
+      showSendingState();
+      
+      fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: name.value.trim(),
+          email: email.value.trim(),
+          subject: subject.value,
+          message: message.value.trim()
+        })
+      })
+      .then(function(response) { return response.json(); })
+      .then(function(data) {
+        if (data.success) {
+          statusDiv.className = 'flex items-start gap-3 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-sm backdrop-blur-sm';
+          statusText.textContent = 'Message Sent Successfully! We will get back to you shortly.';
+          statusDiv.classList.remove('hidden');
+          // Clear form
+          name.value = '';
+          email.value = '';
+          subject.value = 'bug';
+          message.value = '';
+        } else {
+          statusDiv.className = 'flex items-start gap-3 p-4 rounded-xl bg-red-500/10 border border-red-500/30 text-red-300 text-sm backdrop-blur-sm';
+          statusText.textContent = data.error || 'Failed to send message. Please try again.';
+          statusDiv.classList.remove('hidden');
+        }
+      })
+      .catch(function() {
+        statusDiv.className = 'flex items-start gap-3 p-4 rounded-xl bg-red-500/10 border border-red-500/30 text-red-300 text-sm backdrop-blur-sm';
+        statusText.textContent = 'Network error. Please check your connection and try again.';
+        statusDiv.classList.remove('hidden');
+      });
+    }
+
+    function showSendingState() {
+      var statusDiv = document.getElementById('contactStatus');
+      var statusText = document.getElementById('contactStatusText');
+      statusDiv.className = 'flex items-start gap-3 p-4 rounded-xl bg-blue-500/10 border border-blue-500/30 text-blue-300 text-sm backdrop-blur-sm';
+      statusText.textContent = 'Sending your message...';
+      statusDiv.classList.remove('hidden');
     }
   </script>
 </body>
