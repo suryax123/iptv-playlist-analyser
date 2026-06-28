@@ -160,6 +160,7 @@ const apiLimiter = rateLimit({
   max: 30, // 30 requests per minute
   standardHeaders: true,
   legacyHeaders: false,
+  validate: { xForwardedForHeader: false },
   message: { 
     error: 'Too many requests. Please try again later.',
     retryAfter: 60
@@ -179,6 +180,7 @@ const analysisLimiter = rateLimit({
   max: 10, // 10 analysis requests per minute
   standardHeaders: true,
   legacyHeaders: false,
+  validate: { xForwardedForHeader: false },
   message: { 
     error: 'Analysis rate limit exceeded. Please wait before trying again.',
     retryAfter: 60
