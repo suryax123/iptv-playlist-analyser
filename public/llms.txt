@@ -1,0 +1,62 @@
+# StreamNinja - Free IPTV Playlist Analyzer & M3U Stream Tester
+
+> StreamNinja is a free, secure online tool that analyzes M3U/M3U8 IPTV playlists. Upload or paste a playlist URL to check channel health, detect dead streams, categorize by groups, measure response times, and export results as JSON/CSV. No signup required. No data stored.
+
+## Key Features
+
+- **M3U/M3U8 Playlist Parsing**: Parse and analyze IPTV playlist files with full EXTINF metadata extraction (channel name, duration, group-title, logo, tvg-ID)
+- **Live Stream Health Check**: Test hundreds of streaming URLs concurrently to determine which channels are live vs dead, with response time measurement
+- **Group Categorization**: Automatically organize channels by group-title for easy browsing and analysis
+- **Stream Quality Metrics**: Detect stream types (HLS/m3u8, DASH, MPEG-TS, MP4, FLV) and measure server response times
+- **Export Results**: Download analysis reports as CSV or JSON for further processing
+- **Single Channel Checker**: Test individual streaming URLs to verify connectivity and stream type
+- **PWA Support**: Install as a Progressive Web App for offline use with service worker caching
+- **Privacy-First**: No user data stored, no tracking, fully client-side processing
+
+## Pages
+
+- **Home (Playlist Analyzer)**: https://streamninja.app/ — Main tool: upload M3U/M3U8 files or enter playlist URLs for comprehensive analysis. Features include channel health checking, group categorization, stream quality detection, and result export.
+- **IPTV Blog & M3U Guides**: https://streamninja.app/blog.html — Technical articles about M3U playlist optimization, IPTV streaming protocols, channel list management, and troubleshooting dead streams.
+- **About Us**: https://streamninja.app/about-us.html — About the StreamNinja team and our mission to provide free IPTV diagnostic tools.
+- **Contact**: https://streamninja.app/contact-us.html — Report bugs, request features, or send business inquiries.
+- **Privacy Policy**: https://streamninja.app/privacy-policy.html — Privacy policy and data handling practices.
+- **Terms of Service**: https://streamninja.app/terms-of-service.html — Terms governing use of the StreamNinja tool.
+
+## How It Works
+
+1. **Upload or Enter URL**: Either upload an M3U/M3U8 file from your device, or paste a public playlist URL
+2. **Configure Options**: Set how many channels to check (up to 10,000) and toggle live testing on/off
+3. **Analysis Runs**: The server fetches the playlist, parses all EXTINF tags, extracts metadata, and begins checking each stream URL for connectivity
+4. **Real-Time Progress**: See live progress via SSE (Server-Sent Events) with checked/total/live/dead counts and percentage bar
+5. **Review Results**: View comprehensive results organized in tabs:
+   - **Overview**: Summary stats (total channels, live/dead/unchecked counts, response times, group counts)
+   - **Channels**: Full list with per-channel status indicators (green=live, red=dead, gray=unchecked)
+   - **Groups**: Channels organized by group-title category
+   - **Quality**: Stream type distribution analysis
+6. **Export**: Download full analysis as JSON or CSV
+
+## Technical Architecture
+
+- **Backend**: Node.js with Express, rate-limited API endpoints, Helmet security headers, Gzip compression
+- **Frontend**: Vanilla JavaScript SPA, Tailwind CSS, responsive dark theme, PWA with service worker
+- **Deployment**: Azure Web App, NGINX reverse proxy, GitHub Actions CI/CD
+- **Key Endpoints**:
+  - `POST /api/analyze` — Full playlist analysis with batch channel health checking
+  - `GET /api/analyze-stream` — Server-Sent Events streaming analysis (prevents timeout on large playlists)
+  - `POST /api/validate` — Validate playlist URL accessibility
+  - `POST /api/fetch-playlist` — Fetch raw playlist content for client-side processing
+  - `POST /api/check-channel` — Test a single streaming URL
+  - `GET /api/health` — Server health check
+
+## SEO Keywords
+
+IPTV analyzer, M3U playlist checker, free IPTV tool, stream health test, M3U parser, IPTV channel checker, dead link detector, M3U8 analyzer, IPTV playlist validator, streaming URL tester
+
+## Related Resources
+
+- [M3U Specification (Wikipedia)](https://en.wikipedia.org/wiki/M3U)
+- [IPTV Playlist Format Guide](https://streamninja.app/blog.html)
+- [Parser Tools Category](https://streamninja.app/)
+- [HTTPS Stream Security Recommendations](https://streamninja.app/blog.html)
+
+Last updated: 2026-06-26
