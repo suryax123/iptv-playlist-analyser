@@ -25,6 +25,9 @@ const validator = require('validator');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Trust proxy — required behind Azure/NGINX for X-Forwarded-For
+app.set('trust proxy', true);
+
 // ============================================
 // Security Configuration
 // ============================================
