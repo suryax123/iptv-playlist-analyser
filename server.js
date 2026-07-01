@@ -25,8 +25,8 @@ const validator = require('validator');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Trust proxy — required behind Azure/NGINX for X-Forwarded-For
-app.set('trust proxy', true);
+// Trust proxy — only trust localhost (Azure's NGINX runs on same machine)
+app.set('trust proxy', 'loopback');
 
 // ============================================
 // Security Configuration
@@ -160,7 +160,6 @@ const apiLimiter = rateLimit({
   max: 30, // 30 requests per minute
   standardHeaders: true,
   legacyHeaders: false,
-  validate: { xForwardedForHeader: false },
   message: { 
     error: 'Too many requests. Please try again later.',
     retryAfter: 60
@@ -180,7 +179,6 @@ const analysisLimiter = rateLimit({
   max: 10, // 10 analysis requests per minute
   standardHeaders: true,
   legacyHeaders: false,
-  validate: { xForwardedForHeader: false },
   message: { 
     error: 'Analysis rate limit exceeded. Please wait before trying again.',
     retryAfter: 60
@@ -420,25 +418,34 @@ async function checkChannelHealth(url, timeout = 8000) {
   };
 
   const isSuccessfulStatus = (status) => {
-    return (status >= 200 && status < 400) || status === 401 || status === 403 || status === 405 || status === 416;
+    return (status >= 200 && status < 300) || status === 401 || status === 403 || status === 405 || status === 416;
   };
 
   try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), timeout);
+
     let response = await axios.head(url, {
       timeout: timeout,
       maxRedirects: 3,
-      validateStatus: () => true,
+      validateStatus: (status) => status >= 200 && status < 500,
+      signal: controller.signal,
       headers
     });
+    clearTimeout(timeoutId);
 
     if (!isSuccessfulStatus(response.status)) {
+      const controller2 = new AbortController();
+      const timeoutId2 = setTimeout(() => controller2.abort(), timeout);
       response = await axios.get(url, {
         timeout: timeout,
         maxRedirects: 3,
-        validateStatus: () => true,
+        validateStatus: (status) => status >= 200 && status < 500,
         responseType: 'text',
+        signal: controller2.signal,
         headers
       });
+      clearTimeout(timeoutId2);
     }
     
     const responseTime = Date.now() - startTime;
@@ -449,12 +456,13 @@ async function checkChannelHealth(url, timeout = 8000) {
       contentType: response.headers['content-type'] || null
     };
   } catch (error) {
+    const isAborted = error.name === 'AbortError' || error.code === 'ECONNABORTED';
     return {
       status: 'dead',
-      httpStatus: error.response?.status || 0,
+      httpStatus: 0,
       responseTime: Date.now() - startTime,
       contentType: null,
-      error: error.code || error.message
+      error: isAborted ? 'Timeout' : (error.code || error.message)
     };
   }
 }
@@ -578,7 +586,7 @@ app.post('/api/fetch-playlist', async (req, res) => {
       url = result.url;
     }
     
-    const response = await secureFetch(url);
+    const response = await secureFetch(url, { timeout: 60000 });
     
     if (!isValidPlaylistContent(response.data)) {
       return res.status(400).json({ error: 'Invalid playlist content' });
@@ -619,7 +627,7 @@ app.post('/api/analyze', analysisLimiter, async (req, res) => {
     // Fetch playlist
     let response;
     try {
-      response = await secureFetch(url);
+      response = await secureFetch(url, { timeout: 120000 });
     } catch (fetchErr) {
       return res.status(400).json({ error: 'Could not fetch playlist: ' + fetchErr.message });
     }
@@ -706,7 +714,7 @@ app.post('/api/analyze', analysisLimiter, async (req, res) => {
 /**
  * Live Analysis Stream (SSE) - Prevents Browser Timeout on large lists
  */
-app.get('/api/analyze-stream', analysisLimiter, async (req, res) => {
+app.get('/api/analyze-stream', async (req, res) => {
   res.setHeader('Content-Type', 'text/event-stream');
   res.setHeader('Cache-Control', 'no-cache');
   res.setHeader('Connection', 'keep-alive');
@@ -747,7 +755,7 @@ app.get('/api/analyze-stream', analysisLimiter, async (req, res) => {
     
     let response;
     try {
-      response = await secureFetch(url);
+      response = await secureFetch(url, { timeout: 120000 });
     } catch (fetchErr) {
       sendEvent('error', { error: 'Could not fetch playlist: ' + fetchErr.message });
       clearInterval(keepaliveTimer);
