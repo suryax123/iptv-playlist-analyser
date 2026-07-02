@@ -319,7 +319,18 @@
                 </svg>
               </button>
             </div>
-            <button id="actionBtn" class="action-btn relative w-full bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-black font-bold py-4 px-6 rounded-xl shadow-lg shadow-primary/40 hover:shadow-primary/60 transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] text-lg">
+                      <!-- Channel Limit Selector -->
+          <div  class="flex gap-2 mb-3 items-center">
+            <label class="text-sm text-gray-400">Check limit:</label>
+            <select id="channelLimit"  class="bg-slate-900 border border-slate-600 text-gray-100 text-sm rounded-lg p-2 focus:ring-primary focus:border-transparent">
+              <option value="100">100 (Fast)</option>
+              <option value="500">500</option>
+              <option value="1000" selected>1000 (Default)</option>
+              <option value="5000">5000 (Slow)</option>
+              <option value="all">All (May timeout)</option>
+            </select>
+          </div>
+             <button id="actionBtn" class="action-btn relative w-full bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-black font-bold py-4 px-6 rounded-xl shadow-lg shadow-primary/40 hover:shadow-primary/60 transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] text-lg">
               <span class="btn-content flex items-center justify-center gap-3">
                 <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="actionBtnIcon">     
                   <circle cx="11" cy="11" r="8"/>
@@ -381,9 +392,10 @@
                 <rect x="3" y="14" width="7" height="7"/>
               </svg>
             </div>
-            <div class="summary-data">
+                       <div class="summary-data">
               <span class="summary-value block text-3xl font-bold text-white mb-1" id="totalChannels">0</span>
               <span class="summary-label block text-sm text-gray-400">Total Channels</span>
+              <span class="summary-sublabel block text-xs text-gray-500" id="checkedInfo"></span>
             </div>
           </div>
           <div class="summary-card bg-slate-800/60 backdrop-blur-xl border border-slate-700/50 rounded-xl p-6 hover:border-emerald-500/50 transition-all duration-300 hover:scale-105">
@@ -457,10 +469,13 @@
           <div class="channels-header flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
             <h3 class="text-xl font-bold text-white">Channels <span id="channelListCount" class="text-gray-400"></span></h3>
             <div class="channel-filters flex gap-2">
-              <button class="filter-btn active px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300" data-filter="all">All</button>
-              <button class="filter-btn px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300" data-filter="live">Live</button>
-              <button class="filter-btn px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300" data-filter="dead">Dead</button>
-            </div>
+                <div class="channel-filters flex flex-wrap gap-2 items-center">
+    <input type="text" id="channelSearch" placeholder="Search name/group..." class="bg-slate-900/50 border border-slate-600 rounded-lg px-3 py-2 text-sm text-gray-200 focus:outline-none focus:ring-1 focus:ring-primary w-48">
+  <button class="filter-btn active px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300" data-filter="all">All</button>
+  <button class="filter-btn px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300" data-filter="live">Live</button>
+  <button class="filter-btn px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300" data-filter="dead">Dead</button>
+  <button class="filter-btn px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300" data-filter="unchecked">Unchecked</button>
+</div>
           </div>
           <div class="channels-list space-y-2" id="channelsList">
             <!-- Filled by JS -->
@@ -470,17 +485,36 @@
           </div>
         </div>
 
-        <!-- Action Buttons -->
-        <div class="result-actions flex flex-col sm:flex-row gap-4">
-          <button id="downloadReportBtn" class="download-btn flex items-center justify-center gap-3 flex-1 bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white font-semibold py-4 px-6 rounded-xl shadow-lg shadow-primary/30 hover:shadow-primary/50 transition-all duration-300 transform hover:scale-[1.02]">
-            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-              <polyline points="7 10 12 15 17 10"/>
-              <line x1="12" y1="15" x2="12" y2="3"/>
-            </svg>
-            Download Analysis Report (PDF)
-          </button>
-          <button id="newAnalysisBtn" class="secondary-btn px-6 py-4 bg-slate-700 hover:bg-slate-600 text-white rounded-xl font-semibold transition-all duration-300">Analyze Another</button>
+              <!-- Action Buttons -->
+        <div class="result-actions flex flex-col gap-4">
+          <!-- Primary Actions -->
+          <div class="flex flex-col sm:flex-row gap-4">
+            <button id="downloadReportBtn" class="download-btn flex items-center justify-center gap-3 flex-1 bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white font-semibold py-4 px-6 rounded-xl shadow-lg shadow-primary/30 hover:shadow-primary/50 transition-all duration-300 transform hover:scale-[1.02]">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              Download Analysis PDF
+            </button>
+            <button id="newAnalysisBtn" class="secondary-btn px-6 py-4 bg-slate-700 hover:bg-slate-600 text-white rounded-xl font-semibold transition-all duration-300">Analyze Another</button>
+          </div>
+          
+          <!-- Export Actions -->
+          <div class="flex flex-col sm:flex-row gap-3">
+            <button id="exportLiveM3UBtn" class="flex items-center justify-center gap-2 flex-1 bg-emerald-600/20 hover:bg-emerald-600/30 border border-emerald-500/50 text-emerald-400 font-medium py-3 px-4 rounded-xl transition-all duration-300 text-sm">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Export Live (.m3u)
+            </button>
+            <button id="exportDeadM3UBtn" class="flex items-center justify-center gap-2 flex-1 bg-red-600/20 hover:bg-red-600/30 border border-red-500/50 text-red-400 font-medium py-3 px-4 rounded-xl transition-all duration-300 text-sm">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Export Dead (.m3u)
+            </button>
+            <button id="exportCsvBtn" class="flex items-center justify-center gap-2 flex-1 bg-blue-600/20 hover:bg-blue-600/30 border border-blue-500/50 text-blue-400 font-medium py-3 px-4 rounded-xl transition-all duration-300 text-sm">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Export All (.csv)
+            </button>
+          </div>
         </div>
       </section>
 
@@ -889,7 +923,7 @@
     </footer>
   </div>
 
-  <script src="app.min.js?v=9"></script>
+  <script src="app.js"></script>
   
   <!-- Loading Screen Script -->
   <script>

@@ -1,5 +1,18 @@
+# Dependencies
 node_modules/
+
+# Environment variables 
 .env
-.DS_Store
+
+# Server generated data 
+contact-messages.json
+
+# PM2 Logs
+logs/
 *.log
-.vscode/
+pids/
+
+# OS Files
+.DS_Store
+Thumbs.db
+
