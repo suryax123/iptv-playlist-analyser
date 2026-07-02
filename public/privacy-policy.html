@@ -3,32 +3,34 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Privacy Policy - StreamNinja IPTV Analyzer | Secure & Private M3U Testing</title>
-  <meta name="description" content="StreamNinja privacy policy. We never store your M3U playlists, IPTV links, or personal data. All processing is done in memory. Zero-storage policy guaranteed.">
-  <meta name="keywords" content="streamninja privacy, iptv privacy policy, m3u analyzer privacy, secure iptv testing, no data storage iptv">
+  <title>Privacy Policy - StreamNinja | Free IPTV Playlist Analyzer</title>
+  <meta name="description" content="StreamNinja privacy policy. We never store your M3U playlists, IPTV links, or personal data. Zero-storage policy. No tracking cookies.">
+  <meta name="robots" content="index, follow">
+  <meta name="google-adsense-account" content="ca-pub-2041522863254731">
+  <link rel="canonical" href="https://streamninja.app/privacy-policy.html">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="manifest" href="/manifest.json">
-  <link rel="canonical" href="https://streamninja.app/privacy-policy.html">
-  <meta name="google-adsense-account" content="ca-pub-2041522863254731">
+  <meta name="theme-color" content="#1a1a2e">
   
-  <!-- Add Tailwind -->
   <link rel="stylesheet" href="tailwind-built.css?v=4">
-  <!-- BreadcrumbList Schema -->
+  <!-- Premium Outfit Font -->
+ 
+
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://streamninja.app/" },
-      { "@type": "ListItem", "position": 2, "name": "Privacy Policy", "item": "https://streamninja.app/privacy-policy.html" }
-    ]
+    "@type": "WebPage",
+    "name": "Privacy Policy",
+    "url": "https://streamninja.app/privacy-policy.html"
   }
   </script>
-  </head>
+</head>
 <body class="bg-gradient-to-br from-darker via-dark to-navy min-h-screen text-gray-100 relative overflow-x-hidden">
+
   <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <!-- Header -->
     <header class="flex flex-row items-center justify-between gap-2 sm:gap-4 mb-8 sm:mb-12 animate-fade-in w-full">
-      <div class="logo flex items-center gap-3">
+      <a href="/" class="logo flex items-center gap-3">
         <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-lg shadow-primary/50 transform hover:scale-110 transition-transform duration-300">
           <svg class="w-6 h-6 sm:w-7 sm:h-7 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <polygon points="5 3 19 12 5 21 5 3"/>
@@ -38,7 +40,8 @@
         <span class="text-xl sm:text-2xl font-bold">
           Stream<span class="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Ninja</span>
         </span>
-      </div>
+      </a>
+
       <div class="header-badge inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/30 text-primary text-sm font-medium shadow-lg shadow-primary/20">
         <span class="pulse relative flex h-2 w-2">
           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
@@ -47,95 +50,200 @@
         Free & Secure
       </div>
     </header>
-    
-    <nav aria-label="Breadcrumb" class="mb-6">
+
+    <!-- Breadcrumb -->
+    <nav aria-label="Breadcrumb" class="mb-8">
       <ol class="flex items-center gap-2 text-sm text-gray-400">
         <li><a href="/" class="hover:text-primary transition-colors">Home</a></li>
         <li class="text-gray-600">/</li>
-        <li class="text-white">Privacy Policy</li>
+        <li class="text-white font-medium">Privacy Policy</li>
       </ol>
     </nav>
-    
-    <main class="max-w-4xl mx-auto space-y-6 sm:space-y-8 bg-slate-800/40 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-6 sm:p-10 mb-12">
-        <h1 class="text-3xl sm:text-4xl font-bold text-white mb-6">Privacy Policy</h1>
-        <div class="prose prose-invert max-w-none text-gray-300">
-            
-    <p class="mb-4 text-lg text-gray-300 leading-relaxed">At <strong class="text-white">StreamNinja</strong>, we hold your privacy and data security in the highest regard. This privacy policy explains our philosophy regarding data collection, how our infrastructure handles your inputs, and exactly what happens to your network traffic when you use our M3U analyzer tool.</p>
-    <div class="bg-primary/10 border border-primary/30 p-4 rounded-xl mb-6">
-        <p class="text-primary font-medium text-sm">💡 <strong class="text-white">TL;DR:</strong> We do not log, save, or track your IPTV playlists, stream tokens, passwords, or the URLs you test inside our platform.</p>
-    </div>
-    
-    <h2 class="text-2xl font-bold text-white mt-10 mb-4 border-b border-slate-700 pb-2">1. Data Storage & Local Processing</h2>
-    <p class="mb-4 text-gray-400 leading-relaxed tracking-wide">
-        When you submit an M3U playlist URL to the StreamNinja platform, our backend infrastructure fetches the text strictly into volatile memory (RAM) to parse the file structure for HTTP networking checks and <code class="text-white font-mono bg-slate-800 px-1 rounded">tvg-id</code> validation. 
-    </p>
-    <ul class="list-disc pl-6 space-y-2 mb-6 text-gray-400">
-        <li><span class="text-white">No Database Storage:</span> We do not possess a database infrastructure connected to user inputs. Your M3U lists never get saved to a disk.</li>
-        <li><span class="text-white">Client-Side Operations:</span> Generation of your PDF analysis reports happens entirely inside your browser using JavaScript memory. The PDF file is rendered locally on your device; it is not created on or downloaded from our servers.</li>
-    </ul>
 
-    <h2 class="text-2xl font-bold text-white mt-8 mb-4 border-b border-slate-700 pb-2">2. Usage Analytics</h2>
-    <p class="mb-4 text-gray-400 leading-relaxed tracking-wide">
-        To continuously monitor server stability, rate limits, and DDOS attack prevention, we log standard web server telemetry (such as connection timestamps, anonymous IP address hashes, and aggregate HTTP error codes). <strong class="text-white">Under no circumstances</strong> do these logs include the contents of the URLs or files you are running through our testing algorithms.
-    </p>
-    
-    <h2 class="text-2xl font-bold text-white mt-8 mb-4 border-b border-slate-700 pb-2">3. Cookies and Caching</h2>
-    <p class="mb-4 text-gray-400 leading-relaxed tracking-wide">
-        StreamNinja does not deploy any tracking cookies, third-party marketing pixels (such as Facebook/Meta Pixels), or affiliate retargeting IDs. 
-        We optionally store <code class="text-white font-mono bg-slate-800 px-1 rounded">Service Worker</code> caching packets locally in your browser. This is done strictly to ensure our platform can load instantly upon your return and offer basic functionality and cached CSS without requiring excess network requests (PWA standard capability).
-    </p>
-
-    <h2 class="text-2xl font-bold text-white mt-8 mb-4 border-b border-slate-700 pb-2">Contact Us</h2>
-    <p class="mb-4 text-gray-400 leading-relaxed tracking-wide">
-        If you have specific technical questions regarding our Server-Sent Events implementation, data streaming security protocols, or this privacy statement, please refer to our <a href="contact-us.html" class="text-primary hover:text-white transition-colors underline decoration-primary/30">Contact Us</a> page.
-    </p>
-
+    <!-- Hero with Glow -->
+    <section class="relative max-w-4xl mx-auto text-center mb-16 pt-8">
+      <div class="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="relative z-10">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800/60 border border-slate-700/50 backdrop-blur-sm text-primary text-sm font-medium mb-6 shadow-lg">
+          <span>🔒</span> Your Data, Your Control
         </div>
+        <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white leading-tight mb-6 tracking-tight" style="font-family: 'Outfit', sans-serif;">
+          <span class="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Privacy</span> Policy
+        </h1>
+        <p class="text-lg text-gray-400">Last Updated: January 2025</p>
+      </div>
+    </section>
+
+    <!-- Main Content Card -->
+    <main class="max-w-4xl mx-auto mb-16 relative">
+      <div class="absolute top-0 left-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl pointer-events-none"></div>
+      
+      <div class="relative z-10 bg-slate-800/40 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-8 sm:p-12 shadow-2xl space-y-10">
+
+        <!-- TLDR Box -->
+        <div class="bg-primary/10 border border-primary/30 p-5 rounded-xl">
+          <p class="text-primary font-medium text-sm">
+            💡 <strong class="text-white">TL;DR:</strong> StreamNinja does not track, log, or store your M3U playlists, IPTV URLs, or stream tokens. Your playlist data is processed temporarily in memory and immediately discarded. We do not sell, share, or monetize your personal information.
+          </p>
+        </div>
+
+        <!-- Section 1 -->
+        <section>
+          <h2 class="text-2xl font-bold text-white mb-4 border-b border-slate-700/50 pb-3 tracking-tight" style="font-family: 'Outfit', sans-serif;">1. Information We Collect</h2>
+          <div class="space-y-4 text-gray-300 leading-relaxed">
+            <p><strong class="text-white">We collect NO personal data by default.</strong> StreamNinja does not require user accounts, email signups, or registrations.</p>
+            
+            <h3 class="text-xl font-semibold text-white mt-6 mb-2">1.1 Playlist Data (Temporary Processing Only)</h3>
+            <p>When you paste an M3U URL into the analyzer, our server fetches that file into volatile RAM strictly for the duration of the analysis. Under no circumstances is your playlist data:</p>
+            <ul class="space-y-3 list-none pl-0">
+              <li class="flex items-start gap-3 text-gray-400"><span class="text-red-400 mt-1 text-lg leading-none">✗</span><span>Written to any persistent storage (database, disk, or SSD).</span></li>
+              <li class="flex items-start gap-3 text-gray-400"><span class="text-red-400 mt-1 text-lg leading-none">✗</span><span>Logged to any file.</span></li>
+              <li class="flex items-start gap-3 text-gray-400"><span class="text-red-400 mt-1 text-lg leading-none">✗</span><span>Shared with third parties.</span></li>
+              <li class="flex items-start gap-3 text-gray-400"><span class="text-red-400 mt-1 text-lg leading-none">✗</span><span>Used for training AI models.</span></li>
+            </ul>
+
+            <h3 class="text-xl font-semibold text-white mt-6 mb-2">1.2 Contact Form Data</h3>
+            <p>If you voluntarily submit a message via our Contact form, we temporarily receive your name, email address, and the message content. This data is stored in a JSON file on the server for the sole purpose of responding to your inquiry. We never use this data for marketing or newsletters.</p>
+
+            <h3 class="text-xl font-semibold text-white mt-6 mb-2">1.3 Server Logs (Technical Necessity)</h3>
+            <p>Like every web server, our infrastructure records standard connection metadata for security and debugging. This includes:</p>
+            <ul class="space-y-3 list-none pl-0">
+              <li class="flex items-start gap-3 text-gray-400"><span class="text-emerald-400 mt-1 text-lg leading-none">→</span><span>Anonymous connection timestamps (no persistent IP logging).</span></li>
+              <li class="flex items-start gap-3 text-gray-400"><span class="text-emerald-400 mt-1 text-lg leading-none">→</span><span>Aggregate HTTP error codes.</span></li>
+              <li class="flex items-start gap-3 text-gray-400"><span class="text-emerald-400 mt-1 text-lg leading-none">→</span><span>Rate-limited request counters (used for abuse prevention).</span></li>
+            </ul>
+            <p>These logs are automatically deleted within 7 days. They do NOT contain the URLs, playlist contents, or personal data of individual users.</p>
+          </div>
+        </section>
+
+        <!-- Section 2 -->
+        <section>
+          <h2 class="text-2xl font-bold text-white mb-4 border-b border-slate-700/50 pb-3 tracking-tight" style="font-family: 'Outfit', sans-serif;">2. Cookies & Local Storage</h2>
+          <div class="space-y-4 text-gray-300 leading-relaxed">
+            <p>StreamNinja does not deploy any tracking cookies, marketing pixels, or third-party analytics scripts (such as Google Analytics).</p>
+            <p>The only local storage mechanisms used are:</p>
+            <ul class="space-y-3 list-none pl-0">
+              <li class="flex items-start gap-3 text-gray-400"><span class="text-primary mt-1 text-lg leading-none">⬢</span><span><strong class="text-white">Service Worker Cache:</strong> Required for Progressive Web App (PWA) functionality. This caches static assets (CSS, icons) to enable offline loading. No personal data is cached.</span></li>
+              <li class="flex items-start gap-3 text-gray-400"><span class="text-primary mt-1 text-lg leading-none">⬢</span><span><strong class="text-white">Browser JavaScript Memory:</strong> PDF reports and channel lists are generated in your browser's temporary memory. Nothing is written to your disk.</span></li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Section 3 (AdSense Critical) -->
+        <section>
+          <h2 class="text-2xl font-bold text-white mb-4 border-b border-slate-700/50 pb-3 tracking-tight" style="font-family: 'Outfit', sans-serif;">3. Google AdSense & Third-Party Services</h2>
+          <div class="space-y-4 text-gray-300 leading-relaxed">
+            <p>StreamNinja displays advertisements via <strong class="text-white">Google AdSense</strong>. Google may use cookies and web beacons to serve personalized ads based on your browsing history. However, AdSense is only loaded after a 3.5-second delay to prioritize tool performance.</p>
+            <p>Google's use of advertising cookies enables it and its partners to serve ads based on your visit to our site and/or other sites on the Internet.</p>
+            <p>You can opt out of personalized advertising by visiting <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-white transition-colors underline decoration-primary/30">Google Ads Settings</a>. For more information, see <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-white transition-colors underline decoration-primary/30">How Google uses data when you use our partners' sites or apps</a>.</p>
+          </div>
+        </section>
+
+        <!-- Section 4 -->
+        <section>
+          <h2 class="text-2xl font-bold text-white mb-4 border-b border-slate-700/50 pb-3 tracking-tight" style="font-family: 'Outfit', sans-serif;">4. Data Retention & Deletion</h2>
+          <div class="space-y-4 text-gray-300 leading-relaxed">
+            <p>As stated above, we retain virtually no user data. The only persistent data is contact form messages, which you can request to be deleted at any time by emailing us through the Contact page. We will delete all associated data within 30 days of your request.</p>
+          </div>
+        </section>
+
+        <!-- Section 5 -->
+        <section>
+          <h2 class="text-2xl font-bold text-white mb-4 border-b border-slate-700/50 pb-3 tracking-tight" style="font-family: 'Outfit', sans-serif;">5. Third-Party Links & Embeds</h2>
+          <div class="space-y-4 text-gray-300 leading-relaxed">
+            <p>StreamNinja may link to external websites (such as the IPTV-org GitHub repository for test playlists). We have no control over the privacy practices of those websites and encourage you to review their policies.</p>
+            <p>The M3U/stream URLs you test are provided by you and belong to third-party servers. StreamNinja takes no responsibility for the content or privacy policies of those servers.</p>
+          </div>
+        </section>
+
+        <!-- Section 6 (GDPR) -->
+        <section>
+          <h2 class="text-2xl font-bold text-white mb-4 border-b border-slate-700/50 pb-3 tracking-tight" style="font-family: 'Outfit', sans-serif;">6. Your Rights (GDPR & CCPA)</h2>
+          <div class="space-y-4 text-gray-300 leading-relaxed">
+            <p>If you are a resident of the European Economic Area (EEA) or California, you have the following rights regarding your personal data:</p>
+            <ul class="space-y-3 list-none pl-0">
+              <li class="flex items-start gap-3 text-gray-400"><span class="text-emerald-400 mt-1 text-lg leading-none">✓</span><span><strong class="text-white">Right to Access:</strong> Request a copy of any data we may hold about you.</span></li>
+              <li class="flex items-start gap-3 text-gray-400"><span class="text-emerald-400 mt-1 text-lg leading-none">✓</span><span><strong class="text-white">Right to Deletion:</strong> Request that we delete any personal information we may hold.</span></li>
+              <li class="flex items-start gap-3 text-gray-400"><span class="text-emerald-400 mt-1 text-lg leading-none">✓</span><span><strong class="text-white">Right to Opt-Out:</strong> You may opt out of Google personalized advertising as described in Section 3.</span></li>
+            </ul>
+            <p>To exercise any of these rights, please contact us using the form on our <a href="contact-us.html" class="text-primary hover:text-white transition-colors underline decoration-primary/30">Contact Us</a> page.</p>
+          </div>
+        </section>
+
+        <!-- Section 7 -->
+        <section>
+          <h2 class="text-2xl font-bold text-white mb-4 border-b border-slate-700/50 pb-3 tracking-tight" style="font-family: 'Outfit', sans-serif;">7. Security Measures</h2>
+          <div class="space-y-4 text-gray-300 leading-relaxed">
+            <p>We implement reasonable technical and organizational security measures to protect your temporary data during transit, including:</p>
+            <ul class="space-y-3 list-none pl-0">
+              <li class="flex items-start gap-3 text-gray-400"><span class="text-primary mt-1 text-lg leading-none">⬢</span><span>All connections encrypted via HTTPS (TLS 1.3).</span></li>
+              <li class="flex items-start gap-3 text-gray-400"><span class="text-primary mt-1 text-lg leading-none">⬢</span><span>Security headers (Helmet.js) prevent XSS and clickjacking.</span></li>
+              <li class="flex items-start gap-3 text-gray-400"><span class="text-primary mt-1 text-lg leading-none">⬢</span><span>Rate limiting mitigates abuse and brute-force attempts.</span></li>
+              <li class="flex items-start gap-3 text-gray-400"><span class="text-primary mt-1 text-lg leading-none">⬢</span><span>Private IP blocking (SSRF protection) prevents data exfiltration.</span></li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Section 8 -->
+        <section>
+          <h2 class="text-2xl font-bold text-white mb-4 border-b border-slate-700/50 pb-3 tracking-tight" style="font-family: 'Outfit', sans-serif;">8. Changes to This Policy</h2>
+          <div class="space-y-4 text-gray-300 leading-relaxed">
+            <p>We may update this Privacy Policy from time to time. If we make material changes, we will update the "Last Updated" date at the top of this page and notify users via a notice on our homepage.</p>
+          </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="bg-slate-800/30 p-6 rounded-xl border border-slate-700/50 text-center">
+          <h3 class="text-xl font-bold text-white mb-3" style="font-family: 'Outfit', sans-serif;">Questions About Your Privacy?</h3>
+          <p class="text-gray-400 text-sm leading-relaxed mb-5">If you have any concerns or questions regarding this Privacy Policy, please reach out to us.</p>
+          <a href="contact-us.html" class="inline-flex items-center gap-2 px-8 py-3.5 bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-black font-bold rounded-xl shadow-lg shadow-primary/30 hover:shadow-primary/50 transition-all duration-300 transform hover:scale-[1.02] text-sm">
+            Contact Us
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </section>
+
+      </div>
     </main>
 
-    <!-- Footer -->
+        <!-- Footer -->
     <footer class="mt-20 pt-8 border-t border-slate-700/50 text-center text-gray-400">
       <p class="mb-2">© 2025 Stream Ninja. Free forever. No data stored.</p>
-      <div class="footer-links">
-        <span>Made with ❤️ for the IPTV community</span>
-      </div>
+      <div class="footer-links"><span>Made with ❤️ for the IPTV community</span></div>
     </footer>
-
-    <!-- Footer Disclaimer -->
     <footer class="mt-6 text-center text-sm text-gray-500">
-        <p class="max-w-3xl mx-auto">StreamNinja is a technical analysis tool for testing stream connectivity and M3U syntax. We do not host, provide, or sell any media content. We do not condone piracy. This tool is strictly for educational and diagnostic purposes.</p>
+      <p class="max-w-3xl mx-auto">StreamNinja is a technical analysis tool. We do not host, provide, or sell any media content. Strictly for educational and diagnostic purposes.</p>
     </footer>
-
-    <!-- Footer Navigation -->
     <footer class="mt-6 pb-8">
-        <nav>
-            <ul class="flex flex-wrap justify-center gap-4 text-sm">
-                <li><a href="blog.html" class="text-gray-400 hover:text-primary transition-colors">Tech Blog</a></li>
-                <li><a href="privacy-policy.html" class="text-gray-400 hover:text-primary transition-colors">Privacy Policy</a></li>
-                <li><a href="terms-of-service.html" class="text-gray-400 hover:text-primary transition-colors">Terms of Service</a></li>
-                <li><a href="contact-us.html" class="text-gray-400 hover:text-primary transition-colors">Contact Us</a></li>
-                <li><a href="about-us.html" class="text-gray-400 hover:text-primary transition-colors">About Us</a></li>
-            </ul>
-        </nav>
+      <nav>
+        <ul class="flex flex-wrap justify-center gap-4 text-sm">
+          <li><a href="blog.html" class="text-gray-400 hover:text-primary transition-colors">Tech Blog</a></li>
+          <li><a href="privacy-policy.html" class="text-gray-400 hover:text-primary transition-colors">Privacy Policy</a></li>
+          <li><a href="terms-of-service.html" class="text-gray-400 hover:text-primary transition-colors">Terms of Service</a></li>
+          <li><a href="contact-us.html" class="text-gray-400 hover:text-primary transition-colors">Contact Us</a></li>
+          <li><a href="about-us.html" class="text-gray-400 hover:text-primary transition-colors">About Us</a></li>
+        </ul>
+      </nav>
     </footer>
   </div>
 
+  <!-- Async Font Loading (Zero Render Blocking) -->
+  <script>
+    WebFontConfig = {
+      google: { families: ['Outfit:400,600,800,900'] }
+    };
+    (function(d) {
+      var wf = d.createElement('script'), s = d.scripts[0];
+      wf.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js';
+      wf.async = true;
+      s.parentNode.insertBefore(wf, s);
+    })(document);
+  </script>
+
+  <!-- App Logic & Service Worker -->
   <script>
     if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js').catch(() => {});
-      });
+      window.addEventListener('load', () => { navigator.serviceWorker.register('/sw.js').catch(() => {}); });
     }
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
